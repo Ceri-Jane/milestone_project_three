@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{# 
+    This template extends the global base layout.
+    By inheriting from base.html, we automatically get the navbar, footer,
+    Bootstrap styling and overall page structure without repeating code.
+#}
+
+{% block content %}
+{# 
+    The block below replaces the {% block content %} section inside base.html.
+    Django takes the contents of this block and injects it into the main area
+    defined in the parent template.
+#}
+
+    <h1>Welcome to QuickFlicks</h1>
+    <p class="lead">
+        Your place to track movies, shelves and what to watch next.
+    </p>
+
+{# End of page-specific content block #}
+{% endblock %}

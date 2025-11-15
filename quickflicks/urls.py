@@ -1,30 +1,27 @@
 """
-URL configuration for quickflicks project.
+URL configuration for the quickflicks project.
 
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+This file defines the top-level URL routes for the project.
+Each path maps a URL to a specific view function. Views return
+the response that is displayed in the user's browser.
+
+As the project grows, individual apps (e.g. accounts, movies)
+will have their own URL files which we include from here.
 """
-from django.contrib import admin
-from django.http import HttpResponse
-from django.urls import path
 
-# test home page for heroku deployment
+from django.contrib import admin
+from django.urls import path
+from django.shortcuts import render   # used for rendering HTML templates
+
+# Home page view
+# This function loads the home.html template and returns it to the browser.
+# Using render() allows us to return full HTML templates instead of plain text.
 def home(request):
-    return HttpResponse("QuickFlicks: Deployment test successful.")
+    return render(request, "home.html")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    # Root URL of the project. When a user visits "/", this view is displayed.
     path('', home, name='home'),
 ]
-
-
