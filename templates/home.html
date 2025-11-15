@@ -7,15 +7,13 @@
 
 {% block content %}
 {# 
-    The block below replaces the {% block content %} section inside base.html.
-    Django takes the contents of this block and injects it into the main area
-    defined in the parent template.
+    This block replaces the main content area defined in base.html.
+    Django injects everything inside this block into the template.
 #}
 
-    <h1>Welcome to QuickFlicks</h1>
-    <p class="lead">
-        Your place to track movies, shelves and what to watch next.
-    </p>
+<h1>Welcome to QuickFlicks</h1>
+<p class="lead">
+    Your place to track movies, shelves and what to watch next.
+</p>
 
-{# End of page-specific content block #}
 {% endblock %}
