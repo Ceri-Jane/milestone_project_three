@@ -8,8 +8,11 @@
   --primary-color: #ffffff;
   --secondary-color: #000000; 
   --background-color: #2f3c4b;
-  --btn-hover-color: #99ffee;
+  --hover-color: #99ffee;
   --search-button-color: #3700ff;
+  --divider-color: #7a7a7a3d;
+  --shadow-color: #0000006c;
+  --primary-color-transparent: #ffffff8c;
 }
 
 /* Global Styles */
@@ -20,12 +23,23 @@ body {
     font-family: var(--primary-font);
 }
 
+a { 
+    text-decoration: none; 
+    color: #eb1111;
+}
+
+a:hover {
+    color: var(--hover-color);
+}
+
 /* Navbar */
+
 .navbar-brand {
     font-family: var(--secondary-font);
 }
 
 /* Hero Section */
+
 .hero-box {
     text-align: center;
     margin: 44px 0;
@@ -37,23 +51,17 @@ body {
     width: 80%;
     max-width: 500px;
     height: auto;
-    filter: drop-shadow(0 0 6px rgba(0,0,0,0.4));
-}
-
-.hero-logo {
-    width: 80%;
-    max-width: 450px;
-    display: block;
-    margin: 0 auto 20px;
+    filter: drop-shadow(0 0 6px var(--shadow-color));
 }
 
 .hero-subtitle {
-    font-family: var(--primary-font);
-    opacity: 0.9;
-    font-size: 1.1rem;
+    font-size: clamp(1rem, 2vw, 1.8rem);
+    opacity: 0.85;
+    margin-top: 5px;
 }
 
 /* Auth Buttons */
+
 .hero-auth {
     margin-top: 20px;
     display: flex;
@@ -66,15 +74,17 @@ body {
     border-radius: 6px;
     font-weight: bold;
     border: 1px solid var(--secondary-color);
-    background-color: #ffffff;
+    background-color: var(--primary-color);
     color: var(--secondary-color);
 }
 
 .btn-outline:hover {
-    background: var(--btn-hover-color);
+    background: var(--hover-color);
+    color: var(--secondary-color);
 }
 
 /* Search Bar */
+
 .search-form {
     max-width: 750px;
     margin: auto;
@@ -83,14 +93,14 @@ body {
 }
 .search-form input {
     flex: 1;
-    background: var(--background-color);
-    color: var(--primary-color);
+    background: var(--primary-color-transparent);
+    color: var(--secondary-color);
     border: 1px solid var(--secondary-color);
     padding: 12px;
     border-radius: 6px;
 }
 .search-form input:focus {
-    border-color: var(--btn-hover-color);
+    border-color: var(--hover-color);
 }
 
 .search-form button {
@@ -102,6 +112,32 @@ body {
     cursor: pointer;
 }
 .search-form button:hover {
-    background: var(--btn-hover-color);
+    background: var(--hover-color);
     color: var(--secondary-color);
+}
+
+/* Spacer Divider */
+.page-divider {
+    width: 100%;
+    max-width: 900px;
+    margin: 30px auto;
+    border-top: 1px solid var(--divider-color);
+}
+
+/* Results */
+
+.results-heading {
+    text-align: center;
+    margin: 35px 0 20px;
+    font-size: 1.7rem;
+    font-weight: bold;
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 26px;
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 20px;
 }
