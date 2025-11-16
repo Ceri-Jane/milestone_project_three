@@ -39,7 +39,7 @@
                     <li>
                         <form action="{% url 'logout' %}" method="post" class="dropdown-item p-0">
                             {% csrf_token %}
-                            <button class="btn w-100 text-start text-danger" aria-label="Logout">
+                            <button type= "submit" class="btn w-100 text-start text-danger" aria-label="Logout">
                                 🚪 Logout
                             </button>
                         </form>
