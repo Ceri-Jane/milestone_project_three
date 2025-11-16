@@ -12,7 +12,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-%vy=)$wd+ew9rr0sj3)jl8je8^_ck=ni9b=*1qxoc*9%@etdo="
 
 # DEBUG controlled by environment variable (Heroku uses this)
-DEBUG = os.environ.get("DEBUG", "False") == "True"
+DEBUG = True
 
 # Hosts allowed to serve this app
 ALLOWED_HOSTS = [
