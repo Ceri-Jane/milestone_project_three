@@ -10,19 +10,9 @@ will have their own URL files which we include from here.
 """
 
 from django.contrib import admin
-from django.urls import path, include     
-from django.shortcuts import render       # used for rendering HTML templates
-
-# Home page view
-def home(request):
-    return render(request, "movies/home.html")
+from django.urls import path, include
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-
-    # Accounts URLs (login, signup, etc.)
-    path('accounts/', include('accounts.urls')),
-    
-    # Root URL
-    path('', home, name='home'),
+    path("admin/", admin.site.urls),
+    path("", include("movies.urls")),  # home + search
 ]
