@@ -12,5 +12,5 @@
 
 /* Global Styles */
 .navbar-brand {
-    font-family: Limelight, sans-serif;
+    font-family: var(--secondary-font);
 }
