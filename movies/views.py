@@ -19,6 +19,8 @@ def home(request):
         data = response.json()
 
         movies = data.get("results", [])
+        
+        print("TMDB returned:", len(movies), "results for:", query)
 
     context = {
         "query": query,
