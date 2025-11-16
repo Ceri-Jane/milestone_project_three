@@ -17,7 +17,7 @@ from django.shortcuts import render   # used for rendering HTML templates
 # This function loads the home.html template and returns it to the browser.
 # Using render() allows us to return full HTML templates instead of plain text.
 def home(request):
-    return render(request, "home.html")
+    return render(request, "movies/home.html")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
