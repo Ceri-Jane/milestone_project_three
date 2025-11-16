@@ -4,6 +4,8 @@ Django settings for quickflicks project.
 
 from pathlib import Path
 import os
+from decouple import config
+
 
 # Build paths inside the project
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -115,3 +117,5 @@ LOGGING = {
         "level": "DEBUG",
     },
 }
+
+TMDB_API_KEY = config("TMDB_API_KEY")
