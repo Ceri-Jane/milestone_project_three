@@ -10,18 +10,19 @@ will have their own URL files which we include from here.
 """
 
 from django.contrib import admin
-from django.urls import path
-from django.shortcuts import render   # used for rendering HTML templates
+from django.urls import path, include     
+from django.shortcuts import render       # used for rendering HTML templates
 
 # Home page view
-# This function loads the home.html template and returns it to the browser.
-# Using render() allows us to return full HTML templates instead of plain text.
 def home(request):
     return render(request, "movies/home.html")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    # Root URL of the project. When a user visits "/", this view is displayed.
+    # Accounts URLs (login, signup, etc.)
+    path('accounts/', include('accounts.urls')),
+    
+    # Root URL
     path('', home, name='home'),
 ]
