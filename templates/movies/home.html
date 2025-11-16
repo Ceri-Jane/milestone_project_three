@@ -25,7 +25,7 @@
     {% endif %}
 </div>
 
-<!-- SEARCH BAR (structure only) -->
+<!-- SEARCH BAR -->
 <form method="GET" action="{% url 'home' %}" class="search-form">
     <input 
         type="text" 
@@ -34,5 +34,11 @@
         value="{{ query }}">
     <button type="submit">Search</button>
 </form>
+
+<!-- Divider -->
+<div class="page-divider"></div>
+
+<!-- Results heading -->
+<h2 class="results-heading">Results</h2>
 
 {% endblock %}
