@@ -5,12 +5,15 @@
 :root {
   --primary-font: "Oswald", sans-serif;
   --secondary-font: "Limelight", serif;
-  --primary-color: ;
-  --secondary-color: ; 
+  --primary-color: #ffffff;
+  --secondary-color: #000000; 
   --background-color: ;
+  --btn-hover-color: #99ffee;
 }
 
 /* Global Styles */
+
+/* Navbar */
 .navbar-brand {
     font-family: var(--secondary-font);
 }
@@ -32,4 +35,24 @@
     font-family: var(--primary-font);
     opacity: 0.9;
     font-size: 1.1rem;
+}
+
+/* Auth Buttons */
+.hero-auth {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn-outline {
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-weight: bold;
+    border: 1px solid var(--secondary-color);
+    color: var(--secondary-color);
+}
+
+.btn-outline:hover {
+    background: var(--btn-hover-color);
 }
