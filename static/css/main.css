@@ -25,7 +25,7 @@ body {
 
 a { 
     text-decoration: none; 
-    color: #eb1111;
+    color: #11eb40;
 }
 
 a:hover {
@@ -41,6 +41,10 @@ a:hover {
 .navbar-brand {
     font-family: var(--secondary-font);
     color: var(--primary-color);
+}
+
+.navbar-brand:hover {
+    color: var(--hover-color);
 }
 
 /* Hero Section */
