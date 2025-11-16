@@ -34,8 +34,13 @@ a:hover {
 
 /* Navbar */
 
+.nav-color {
+    background-color: var(--secondary-color);
+}
+
 .navbar-brand {
     font-family: var(--secondary-font);
+    color: var(--primary-color);
 }
 
 /* Hero Section */
