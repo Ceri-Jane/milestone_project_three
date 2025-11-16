@@ -2,9 +2,29 @@
 {% load static %}
 
 {% block content %}
-    <h1>Welcome to QuickFlicks</h1>
-    <p class="lead">
+
+<!-- HERO SECTION (structure only) -->
+<div class="hero-box">
+
+    <!-- Logo -->
+    <img src="{% static 'images/logo.png' %}" 
+         alt="QuickFlicks Logo" 
+         class="hero-logo">
+
+    <!-- Subtitle -->
+    <p class="hero-subtitle">
         Explore thousands of movies with their details and ratings.<br>
-        Sign up / Login to create your own shelves - keeping track of what you plan to watch and what you’ve already enjoyed.
+        Sign up / Login to create your own shelves – keeping track of what you plan to watch and what you've already enjoyed.
     </p>
+
+    <!-- Login / Signup buttons only when logged out -->
+    {% if not user.is_authenticated %}
+    <div class="hero-auth">
+        <a href="{% url 'login' %}" class="btn-outline">Login</a>
+        <a href="{% url 'signup' %}" class="btn-solid">Sign Up</a>
+    </div>
+    {% endif %}
+
+</div>
+
 {% endblock %}
