@@ -28,7 +28,16 @@ body {
 /* Hero Section */
 .hero-box {
     text-align: center;
-    margin: 40px 0;
+    margin: 44px 0;
+}
+
+.hero-logo {
+    display: block;
+    margin: 15px auto 20px;
+    width: 80%;
+    max-width: 500px;
+    height: auto;
+    filter: drop-shadow(0 0 6px rgba(0,0,0,0.4));
 }
 
 .hero-logo {
