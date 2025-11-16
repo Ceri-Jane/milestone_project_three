@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<!-- HERO SECTION (structure only) -->
+<!-- HERO SECTION -->
 <div class="hero-box">
 
     <!-- Logo -->
@@ -17,14 +17,22 @@
         Sign up / Login to create your own shelves – keeping track of what you plan to watch and what you've already enjoyed.
     </p>
 
-    <!-- Login / Signup buttons only when logged out -->
     {% if not user.is_authenticated %}
     <div class="hero-auth">
         <a href="{% url 'login' %}" class="btn-outline">Login</a>
         <a href="{% url 'signup' %}" class="btn-solid">Sign Up</a>
     </div>
     {% endif %}
-
 </div>
+
+<!-- SEARCH BAR (structure only) -->
+<form method="GET" action="{% url 'home' %}" class="search-form">
+    <input 
+        type="text" 
+        name="query" 
+        placeholder="Search for a movie..."
+        value="{{ query }}">
+    <button type="submit">Search</button>
+</form>
 
 {% endblock %}
