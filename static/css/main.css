@@ -14,3 +14,22 @@
 .navbar-brand {
     font-family: var(--secondary-font);
 }
+
+/* Hero Section */
+.hero-box {
+    text-align: center;
+    margin: 40px 0;
+}
+
+.hero-logo {
+    width: 80%;
+    max-width: 450px;
+    display: block;
+    margin: 0 auto 20px;
+}
+
+.hero-subtitle {
+    font-family: var(--primary-font);
+    opacity: 0.9;
+    font-size: 1.1rem;
+}
