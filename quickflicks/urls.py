@@ -11,8 +11,13 @@ will have their own URL files which we include from here.
 
 from django.contrib import admin
 from django.urls import path, include
+from django.shortcuts import render
+
+def home(request):
+    return render(request, "movies/home.html")
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", include("movies.urls")),  # home + search
+    path("", include("movies.urls")),   # home + search
+    path("accounts/", include("accounts.urls")),  # FIX
 ]
