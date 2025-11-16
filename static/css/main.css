@@ -141,3 +141,62 @@ a:hover {
     margin: auto;
     padding: 0 20px;
 }
+
+/* Movie Card */
+
+.movie-card {
+    background: #1a1a1a;
+    border-radius: 8px;
+    padding: 14px;
+    border: 1px solid #333;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Poster area */
+
+.poster-area {
+    display: flex;
+    justify-content: center;
+    height: 210px;
+}
+
+.poster-area img {
+    height: 210px;
+    width: auto;
+    border-radius: 6px;
+}
+
+/* Title */
+
+.movie-title {
+    margin-top: 10px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Rating + date */
+
+.movie-meta {
+    margin-top: 8px;
+    text-align: center;
+}
+
+.movie-rating {
+    color: #ffcf33;
+    font-weight: bold;
+}
+
+.movie-date {
+    opacity: 0.8;
+    font-size: 0.85rem;
+}
+
+/* Description */
+
+.movie-desc {
+    margin-top: 10px;
+    font-size: 0.85rem;
+    max-height: 120px;
+    overflow-y: auto;
+}
