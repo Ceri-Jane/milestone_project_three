@@ -6,16 +6,17 @@ from .models import Movie
 
 
 # -------------------------------------------------------------
-# HOME PAGE – TMDB SEARCH
+# HOME PAGE – TMDB SEARCH + "Add to Shelf" Support
 # -------------------------------------------------------------
 def home(request):
     """
-    Displays the search page and calls the TMDB API when the user
-    types a search query.
+    Displays the search page, calls the TMDB API when the user
+    searches, and also checks which movies the user already saved.
     """
     query = request.GET.get("query", "")
     movies = []
 
+    # If no TMDB key → avoid crash
     if not settings.TMDB_API_KEY:
         return render(request, "movies/home.html", {
             "query": query,
@@ -23,6 +24,7 @@ def home(request):
             "tmdb_error": "TMDB API key is not configured.",
         })
 
+    # If user typed a query → call TMDB API
     if query:
         url = "https://api.themoviedb.org/3/search/movie"
         params = {
@@ -45,10 +47,53 @@ def home(request):
                 "tmdb_error": "There was a problem contacting TMDB.",
             })
 
+    # ---------------------------------------------------------
+    # If logged in → get IDs of movies already in the shelf
+    # so the template knows when to show "Already in shelf"
+    # ---------------------------------------------------------
+    user_movie_ids = []
+    if request.user.is_authenticated:
+        user_movie_ids = list(
+            Movie.objects.filter(user=request.user).values_list("tmdb_id", flat=True)
+        )
+
     return render(request, "movies/home.html", {
         "query": query,
         "movies": movies,
+        "user_movie_ids": user_movie_ids,
     })
+
+
+# -------------------------------------------------------------
+# ADD MOVIE TO SHELF
+# -------------------------------------------------------------
+@login_required
+def add_to_shelf(request):
+    """
+    Adds a movie to the user's personal shelf.
+    Called from the home page search results.
+    """
+    if request.method == "POST":
+        tmdb_id = request.POST.get("tmdb_id")
+        title = request.POST.get("title")
+        poster_path = request.POST.get("poster_path")
+
+        # Create movie only if not already saved
+        Movie.objects.get_or_create(
+            user=request.user,
+            tmdb_id=tmdb_id,
+            defaults={
+                "title": title,
+                "poster_url": (
+                    f"https://image.tmdb.org/t/p/w300{poster_path}"
+                    if poster_path else ""
+                ),
+                "status": "to_put_away",
+            }
+        )
+
+    # Return user to the page they came from
+    return redirect(request.META.get("HTTP_REFERER", "home"))
 
 
 # -------------------------------------------------------------
@@ -57,7 +102,7 @@ def home(request):
 @login_required
 def my_shelf(request):
     """
-    Displays movies grouped by shelf status:
+    Displays user's movies grouped by:
       - to_put_away
       - to_watch
       - watched
@@ -80,56 +125,45 @@ def my_shelf(request):
 @login_required
 def change_status(request, movie_id, new_status):
     """
-    Updates the status of a movie (to_watch, watched, to_put_away).
+    Updates the movie's status:
+      - to_put_away
+      - to_watch
+      - watched
     """
     movie = get_object_or_404(Movie, id=movie_id, user=request.user)
 
-    VALID_STATUSES = ["to_watch", "watched", "to_put_away"]
+    VALID_STATUSES = ["to_put_away", "to_watch", "watched"]
 
-    if new_status not in VALID_STATUSES:
-        return redirect("my_shelf")
-
-    movie.status = new_status
-    movie.save()
+    if new_status in VALID_STATUSES:
+        movie.status = new_status
+        movie.save()
 
     return redirect("my_shelf")
 
 
 # -------------------------------------------------------------
-# REMOVE MOVIE FROM USER'S SHELF
+# REMOVE MOVIE FROM SHELF
 # -------------------------------------------------------------
 @login_required
 def remove_movie(request, movie_id):
-    """
-    Deletes a movie from the user's saved shelf.
-    """
     movie = get_object_or_404(Movie, id=movie_id, user=request.user)
     movie.delete()
     return redirect("my_shelf")
 
 
 # -------------------------------------------------------------
-# RATING – THUMBS UP
+# RATING – THUMBS UP / DOWN
 # -------------------------------------------------------------
 @login_required
 def thumb_up(request, movie_id):
-    """
-    Sets rating to 'up' for a movie.
-    """
     movie = get_object_or_404(Movie, id=movie_id, user=request.user)
     movie.rating = "up"
     movie.save()
     return redirect("my_shelf")
 
 
-# -------------------------------------------------------------
-# RATING – THUMBS DOWN
-# -------------------------------------------------------------
 @login_required
 def thumb_down(request, movie_id):
-    """
-    Sets rating to 'down' for a movie.
-    """
     movie = get_object_or_404(Movie, id=movie_id, user=request.user)
     movie.rating = "down"
     movie.save()
