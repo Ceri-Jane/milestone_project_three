@@ -1,1 +1,128 @@
-<h1>Signup page placeholder</h1>
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+{# ------------------------------------------------------------ #}
+{#  SIGNUP PAGE                                                #}
+{#  - Browser validation is intentionally enabled (no          #}
+{#    'novalidate') to provide instant UX feedback             #}
+{#  - Django handles deeper validation (unique username,       #}
+{#    password strength, password match, valid email format)   #}
+{#  - Form errors appear above the form fields using           #}
+{#    {{ form.non_field_errors }} and field-specific errors    #}
+{#  - Structure follows accessibility best practices            #}
+{# ------------------------------------------------------------ #}
+
+<div class="auth-wrapper">
+    <div class="auth-card">
+        <h2 class="auth-title">Create Your Account 🍿</h2>
+
+        {# Django form-level errors (e.g. password mismatch) #}
+        {% if form.errors %}
+        <div class="alert alert-danger">
+            {{ form.non_field_errors }}
+        </div>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <!-- Username -->
+            <div class="form-group mb-3">
+                <label for="id_username">Username</label>
+                <input 
+                    type="text" 
+                    name="username" 
+                    id="id_username" 
+                    class="form-control {% if form.username.errors %}is-invalid{% endif %}"
+                    required
+                    minlength="3"
+                    placeholder="Choose a username"
+                    value="{{ form.username.value|default:'' }}"
+                >
+                {% if form.username.errors %}
+                <div class="invalid-feedback">
+                    {{ form.username.errors.0 }}
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Email -->
+            <div class="form-group mb-3">
+                <label for="id_email">Email</label>
+                <input 
+                    type="email" 
+                    name="email" 
+                    id="id_email" 
+                    class="form-control {% if form.email.errors %}is-invalid{% endif %}"
+                    required
+                    placeholder="your@email.com"
+                    value="{{ form.email.value|default:'' }}"
+                >
+                {% if form.email.errors %}
+                <div class="invalid-feedback">
+                    {{ form.email.errors.0 }}
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Password 1 -->
+            <div class="form-group mb-3">
+                <label for="id_password1">Password</label>
+                <div class="password-row">
+                    <input 
+                        type="password" 
+                        name="password1" 
+                        id="id_password1" 
+                        class="form-control {% if form.password1.errors %}is-invalid{% endif %}"
+                        required
+                        minlength="8"
+                        placeholder="Enter password"
+                    >
+                    <svg class="password-toggle" onclick="togglePassword('id_password1')" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                        <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/>
+                        <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                </div>
+                {% if form.password1.errors %}
+                <div class="invalid-feedback d-block">
+                    {{ form.password1.errors.0 }}
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Password 2 -->
+            <div class="form-group mb-3">
+                <label for="id_password2">Confirm Password</label>
+                <div class="password-row">
+                    <input 
+                        type="password" 
+                        name="password2" 
+                        id="id_password2" 
+                        class="form-control {% if form.password2.errors %}is-invalid{% endif %}"
+                        required
+                        minlength="8"
+                        placeholder="Repeat password"
+                    >
+                    <svg class="password-toggle" onclick="togglePassword('id_password2')" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                        <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/>
+                        <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                </div>
+                {% if form.password2.errors %}
+                <div class="invalid-feedback d-block">
+                    {{ form.password2.errors.0 }}
+                </div>
+                {% endif %}
+            </div>
+
+            <button type="submit" class="btn btn-success w-100">Sign Up</button>
+
+            <p class="auth-alt-text mt-2">
+                Already have an account? <a href="{% url 'login' %}">Log in</a>
+            </p>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
