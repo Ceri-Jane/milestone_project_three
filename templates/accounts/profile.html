@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="profile-page container py-5 d-flex justify-content-center align-items-start">
+    <section class="profile-card">
+        
+        <h2 class="profile-greeting">
+            Hello, {{ user.username }} 👋
+        </h2>
+
+        <p class="profile-email">{{ user.email }}</p>
+
+        <!-- Main actions -->
+        <div class="profile-actions">
+            <a href="{% url 'my_shelf' %}" 
+               class="btn btn-outline w-100 mb-3">
+                🎬 View My Shelf
+            </a>
+
+            <a href="{% url 'home' %}"
+               class="btn btn-outline w-100 mb-4">
+                🔍 Search for Films
+            </a>
+        </div>
+
+        <hr class="profile-divider">
+
+        <!-- Account Settings -->
+        <h4 class="profile-subheading">Account Settings</h4>
+
+        <a href="{% url 'change_username' %}" 
+           class="btn btn-outline w-100 mb-2">
+            ✏️ Change Username
+        </a>
+
+        <a href="{% url 'change_email' %}" 
+           class="btn btn-outline w-100 mb-2">
+            📧 Change Email
+        </a>
+
+        <a href="{% url 'password_change' %}" 
+           class="btn btn-outline w-100 mb-4">
+            🔒 Change Password
+        </a>
+
+        <hr class="profile-divider">
+
+        <!-- Logout -->
+        <form method="POST"
+              action="{% url 'logout' %}"
+              aria-label="Log out of your QuickFlicks account">
+            {% csrf_token %}
+            <button type="submit"
+                    class="btn btn-danger w-100">
+                🚪 Logout
+            </button>
+        </form>
+
+    </section>
+</div>
+
+{% endblock %}

@@ -1,0 +1,49 @@
+/* CSS Variables */
+:root {
+  --primary-font: "Oswald", sans-serif;
+  --secondary-font: "Limelight", serif;
+  --primary-color: #ffffff;
+  --secondary-color: #000000; 
+  --body-background-color: #2f3c4b;
+  --card-background-colour: #1a1a1a;
+  --rating-color: #ffcf33;
+  --hover-color: #99ffee;
+  --search-button-color: #3700ff;
+  --divider-color: #7a7a7a3d;
+  --shadow-color: #0000006c;
+  --primary-color-transparent: #ffffff8c;
+}
+
+
+.profile-page {
+    min-height: 75vh;
+}
+
+.profile-card {
+    background: #1a1a1a;
+    padding: 40px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+    border: 1px solid #333;
+    box-shadow: 0 0 18px rgba(255, 255, 255, 0.05);
+}
+
+.profile-greeting {
+    margin-bottom: 8px;
+}
+
+.profile-email {
+    opacity: 0.85;
+    margin-bottom: 30px;
+}
+
+.profile-divider {
+    border-color: #333;
+    margin: 25px 0;
+}
+
+.profile-subheading {
+    margin-bottom: 15px;
+}
