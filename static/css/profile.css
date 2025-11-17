@@ -20,14 +20,14 @@
 }
 
 .profile-card {
-    background: #1a1a1a;
+    background: var(--card-background-colour);
     padding: 40px;
     border-radius: 12px;
     width: 100%;
     max-width: 450px;
     text-align: center;
-    border: 1px solid #333;
-    box-shadow: 0 0 18px rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--secondary-color);
+    box-shadow: 0 0 18px var(--shadow-color);
 }
 
 .profile-greeting {
@@ -40,7 +40,7 @@
 }
 
 .profile-divider {
-    border-color: #333;
+    border-color: var(--divider-color);
     margin: 25px 0;
 }
 
