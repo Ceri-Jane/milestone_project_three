@@ -1,1 +1,197 @@
-<h1>my shelf</h1>
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'css/shelf.css' %}">
+
+<div class="container py-4">
+
+    <a href="{% url 'home' %}" class="text-light mb-4 d-inline-block">← Back to Search</a>
+
+    <!-- ========================================================= -->
+    <!--                     TO PUT AWAY SECTION                  -->
+    <!-- ========================================================= -->
+    <div class="accordion-item open">
+        <button class="accordion-header">📦 To Put Away</button>
+
+        <div class="accordion-content">
+            <div class="shelf-wrapper">
+                <div class="scroll-left"></div>
+
+                <div class="shelf-row">
+                    {% for movie in to_put_away %}
+                    <div class="shelf-card">
+
+                        <!-- Poster -->
+                        <img src="{{ movie.poster_url }}"
+                             onerror="this.src='{% static 'images/movie-poster-unavailable.jpg' %}'"
+                             alt="{{ movie.title }} poster">
+
+                        <div class="shelf-title">{{ movie.title }}</div>
+
+                        <!-- Actions -->
+                        <div class="shelf-actions">
+                            <!-- Move to To Watch -->
+                            <form method="post"
+                                  action="{% url 'change_status' movie.id 'to_watch' %}">
+                                {% csrf_token %}
+                                <button class="btn btn-sm btn-primary w-100">🎯 Move to To Watch</button>
+                            </form>
+
+                            <!-- Move to Watched -->
+                            <form method="post"
+                                  action="{% url 'change_status' movie.id 'watched' %}">
+                                {% csrf_token %}
+                                <button class="btn btn-sm btn-success w-100">✅ Mark as Watched</button>
+                            </form>
+
+                            <!-- Remove -->
+                            <form method="post" action="{% url 'remove_movie' movie.id %}">
+                                {% csrf_token %}
+                                <button class="btn btn-sm btn-danger w-100">🗑 Remove</button>
+                            </form>
+                        </div>
+
+                    </div>
+                    {% empty %}
+                    <div class="empty-shelf-message">
+                        📦 Nothing to put away yet.<br>
+                        Add movies from search!
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="scroll-right"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ========================================================= -->
+    <!--                     TO WATCH SECTION                     -->
+    <!-- ========================================================= -->
+    <div class="accordion-item open">
+        <button class="accordion-header">🎬 To Watch</button>
+
+        <div class="accordion-content">
+            <div class="shelf-wrapper">
+                <div class="scroll-left"></div>
+
+                <div class="shelf-row">
+                    {% for movie in to_watch %}
+                    <div class="shelf-card">
+
+                        <!-- Poster -->
+                        <img src="{{ movie.poster_url }}"
+                             onerror="this.src='{% static 'images/movie-poster-unavailable.jpg' %}'"
+                             alt="{{ movie.title }} poster">
+
+                        <div class="shelf-title">{{ movie.title }}</div>
+
+                        <!-- Actions -->
+                        <div class="shelf-actions">
+                            <!-- Mark as Watched -->
+                            <form method="post"
+                                  action="{% url 'change_status' movie.id 'watched' %}">
+                                {% csrf_token %}
+                                <button class="btn btn-sm btn-success w-100">✅ Mark as Watched</button>
+                            </form>
+
+                            <!-- Remove -->
+                            <form method="post" action="{% url 'remove_movie' movie.id %}">
+                                {% csrf_token %}
+                                <button class="btn btn-sm btn-danger w-100">🗑 Remove</button>
+                            </form>
+                        </div>
+
+                    </div>
+                    {% empty %}
+                    <div class="empty-shelf-message">
+                        🎯 Your To Watch shelf is empty.<br>
+                        Add something to enjoy later!
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="scroll-right"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ========================================================= -->
+    <!--                        WATCHED SECTION                    -->
+    <!-- ========================================================= -->
+    <div class="accordion-item">
+        <button class="accordion-header">🍿 Watched</button>
+
+        <div class="accordion-content">
+            <div class="shelf-wrapper watched-wrapper">
+                <div class="scroll-left"></div>
+
+                <div class="shelf-row watched-row">
+                    {% for movie in watched %}
+                    <div class="shelf-card watched-card">
+
+                        <!-- Poster -->
+                        <img src="{{ movie.poster_url }}"
+                             onerror="this.src='{% static 'images/movie-poster-unavailable.jpg' %}'"
+                             alt="{{ movie.title }} poster">
+
+                        <div class="shelf-title">{{ movie.title }}</div>
+
+                        <!-- Rating -->
+                        <div class="rating-actions">
+
+                            <!-- Thumbs Up -->
+                            <form method="post" action="{% url 'thumb_up' movie.id %}">
+                                {% csrf_token %}
+                                <button class="btn btn-sm {% if movie.rating == 'up' %}btn-success{% else %}btn-outline-success{% endif %}">
+                                    👍
+                                </button>
+                            </form>
+
+                            <!-- Thumbs Down -->
+                            <form method="post" action="{% url 'thumb_down' movie.id %}">
+                                {% csrf_token %}
+                                <button class="btn btn-sm {% if movie.rating == 'down' %}btn-danger{% else %}btn-outline-danger{% endif %}">
+                                    👎
+                                </button>
+                            </form>
+
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="shelf-actions">
+                            <!-- Move to To Watch -->
+                            <form method="post"
+                                  action="{% url 'change_status' movie.id 'to_watch' %}">
+                                {% csrf_token %}
+                                <button class="btn btn-sm btn-warning w-100">🔄 Move to To Watch</button>
+                            </form>
+
+                            <!-- Remove -->
+                            <form method="post" action="{% url 'remove_movie' movie.id %}">
+                                {% csrf_token %}
+                                <button class="btn btn-sm btn-danger w-100">🗑 Remove</button>
+                            </form>
+                        </div>
+
+                    </div>
+                    {% empty %}
+                    <div class="empty-shelf-message">
+                        🍿 No watched movies yet.<br>
+                        Watch something and return!
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="scroll-right"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
