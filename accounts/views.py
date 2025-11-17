@@ -5,62 +5,51 @@ from django.contrib import messages
 
 from .forms import (
     SignUpForm,
-    LoginForm,
+    EmailOrUsernameLoginForm,
     ChangeEmailForm,
     ChangeUsernameForm,
 )
 
 """
-Views used for user authentication and account management.
+Views for authentication and account management.
 
 Includes:
-- Login (email OR username)
+- Login via username OR email
 - Signup
-- Profile view
+- Profile page
 - Change username
 - Change email
-
-These views rely on Django’s built-in authentication system,
-plus a custom authentication backend which allows logging in with email.
 """
 
 
 def login_view(request):
     """
-    Handles user login using a custom authentication backend.
-    Users can log in using either:
-    - Username
-    - Email address
-
-    GET  → show blank login form
-    POST → validate credentials, authenticate user, redirect home
+    Handles login using the custom EmailOrUsernameLoginForm.
+    - Accepts username OR email
+    - Validates user existence + password
+    - Uses form.user (set in form.clean()) to complete login
     """
+
     if request.method == "POST":
-        form = LoginForm(request.POST)
+        form = EmailOrUsernameLoginForm(request.POST)
 
         if form.is_valid():
-            identifier = form.cleaned_data["identifier"]
-            password = form.cleaned_data["password"]
+            # Retrieve authenticated user stored during form.clean()
+            user = form.user
+            login(request, user)
+            return redirect("home")
 
-            # Custom backend will accept email OR username
-            user = authenticate(request, username=identifier, password=password)
+        # If form is NOT valid, errors appear in form.non_field_errors()
 
-            if user:
-                login(request, user)
-                return redirect("home")
-            else:
-                messages.error(request, "Invalid username/email or password.")
     else:
-        form = LoginForm()
+        form = EmailOrUsernameLoginForm()
 
     return render(request, "accounts/login.html", {"form": form})
 
 
 def signup(request):
     """
-    Handles user registration.
-    GET  → show form
-    POST → validate & create account, then redirect to login page.
+    Standard signup flow using custom SignUpForm.
     """
     if request.method == "POST":
         form = SignUpForm(request.POST)
@@ -77,8 +66,7 @@ def signup(request):
 @login_required
 def profile(request):
     """
-    Basic profile page showing logged-in user info.
-    Protected with @login_required.
+    Basic profile page for authenticated users.
     """
     return render(request, "accounts/profile.html")
 
@@ -86,14 +74,13 @@ def profile(request):
 @login_required
 def change_email(request):
     """
-    Allows logged-in users to update their email address.
-    Updates the User model directly.
+    Allows users to update their email address.
     """
     if request.method == "POST":
         form = ChangeEmailForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
-            messages.success(request, "Email updated successfully ✅")
+            messages.success(request, "Email updated successfully.")
             return redirect("profile")
     else:
         form = ChangeEmailForm(instance=request.user)
@@ -105,7 +92,6 @@ def change_email(request):
 def change_username(request):
     """
     Allows users to update their username.
-    Includes regex validation from the form to prevent invalid characters.
     """
     if request.method == "POST":
         form = ChangeUsernameForm(request.POST, instance=request.user)

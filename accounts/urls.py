@@ -5,17 +5,15 @@
 # routes for the project.
 #
 # Key updates:
-# - Uses Django's built-in LoginView + LogoutView for security,
-#   session handling, and reduced boilerplate.
-# - Custom views handle signup, profile, and account updates.
-# - Added Django’s full password reset system (4-step workflow):
-#     • password_reset                → user enters email
-#     • password_reset_done           → “email sent” page
-#     • password_reset_confirm        → user sets a new password
-#     • password_reset_complete       → confirmation screen
+# - Now uses *custom* login_view (email OR username support)
+#   instead of Django’s LoginView, so that:
+#       • errors display correctly
+#       • email login works
+#       • form.non_field_errors() is populated
+#       • our LoginForm is used
 #
-# These are mapped to custom templates so the styling matches the
-# signup/login pages already built.
+# - Logout continues to use Django's LogoutView.
+# - Added Django’s full password reset workflow (4 screens).
 # -------------------------------------------------------------
 
 from django.urls import path
@@ -24,13 +22,9 @@ from . import views
 
 urlpatterns = [
     # ---------------------------------------------------------
-    # AUTHENTICATION (Login / Logout)
+    # AUTHENTICATION (Custom Login / Django Logout)
     # ---------------------------------------------------------
-    path(
-        "login/",
-        auth_views.LoginView.as_view(template_name="accounts/login.html"),
-        name="login",
-    ),
+    path("login/", views.login_view, name="login"),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
 
     # ---------------------------------------------------------
@@ -48,7 +42,6 @@ urlpatterns = [
     # ---------------------------------------------------------
     # PASSWORD RESET WORKFLOW (Django built-in)
     # ---------------------------------------------------------
-    # 1) Enter email
     path(
         "password-reset/",
         auth_views.PasswordResetView.as_view(
@@ -56,8 +49,6 @@ urlpatterns = [
         ),
         name="password_reset",
     ),
-
-    # 2) Email sent confirmation
     path(
         "password-reset-sent/",
         auth_views.PasswordResetDoneView.as_view(
@@ -65,8 +56,6 @@ urlpatterns = [
         ),
         name="password_reset_done",
     ),
-
-    # 3) Link from email → set new password
     path(
         "password-reset-confirm/<uidb64>/<token>/",
         auth_views.PasswordResetConfirmView.as_view(
@@ -74,8 +63,6 @@ urlpatterns = [
         ),
         name="password_reset_confirm",
     ),
-
-    # 4) Final success page
     path(
         "password-reset-complete/",
         auth_views.PasswordResetCompleteView.as_view(

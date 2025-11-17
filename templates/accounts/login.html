@@ -5,9 +5,10 @@
 {# ------------------------------------------------------------ #}
 {#  LOGIN PAGE                                                  #}
 {#  - Supports login via username OR email                      #}
-{#  - Errors shown using Bootstrap's alert & invalid-feedback   #}
-{#  - Password field includes eye-toggle handled by auth.js     #}
-{#  - Browser validation enabled (no novalidate) for UX         #}
+{#  - Displays Django form-level auth errors correctly          #}
+{#  - Adds inline field errors for accessibility                #}
+{#  - Password eye toggle handled via auth.js                   #}
+{#  - Browser validation enabled (no 'novalidate')              #}
 {# ------------------------------------------------------------ #}
 
 <div class="auth-wrapper">
@@ -15,19 +16,30 @@
 
         <h2 class="auth-title">Welcome Back 🎬</h2>
 
-        {# Global form errors (e.g. wrong password) #}
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-danger">{{ message }}</div>
-            {% endfor %}
+        {# ------------------------------------------------------------ #}
+        {# GLOBAL FORM ERRORS                                           #}
+        {# Shown when login fails (wrong password, unknown user, etc.)  #}
+        {# Django stores these in form.non_field_errors, not messages.  #}
+        {# ------------------------------------------------------------ #}
+        {% if form.non_field_errors %}
+        <div class="alert alert-danger">
+            {{ form.non_field_errors }}
+        </div>
         {% endif %}
 
         <form method="POST">
             {% csrf_token %}
 
-            <!-- Username or Email -->
+            {# ------------------------------------------------------------ #}
+            {# IDENTIFIER FIELD (USERNAME OR EMAIL)                         #}
+            {# Custom field added in LoginForm (identifier replaces         #}
+            {# Django's default username field).                            #}
+            {# ------------------------------------------------------------ #}
             <div class="form-group mb-3">
-                <label for="id_identifier" class="form-label">Username or Email</label>
+                <label for="id_identifier" class="form-label">
+                    Username or Email
+                </label>
+
                 <input
                     type="text"
                     name="identifier"
@@ -37,6 +49,7 @@
                     required
                     value="{{ form.identifier.value|default:'' }}"
                 >
+
                 {% if form.identifier.errors %}
                 <div class="invalid-feedback">
                     {{ form.identifier.errors.0 }}
@@ -44,7 +57,10 @@
                 {% endif %}
             </div>
 
-            <!-- Password -->
+            {# ------------------------------------------------------------ #}
+            {# PASSWORD FIELD                                               #}
+            {# Includes eye icon toggle via auth.js for better UX           #}
+            {# ------------------------------------------------------------ #}
             <div class="form-group mb-3">
                 <label for="id_password" class="form-label">Password</label>
 
@@ -57,7 +73,12 @@
                         placeholder="Enter your password"
                         required
                     >
-                    <svg class="password-toggle" onclick="togglePassword('id_password')" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                    <svg class="password-toggle"
+                         onclick="togglePassword('id_password')"
+                         viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="white"
+                         stroke-width="2">
                         <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/>
                         <circle cx="12" cy="12" r="3"/>
                     </svg>
@@ -70,15 +91,17 @@
                 {% endif %}
             </div>
 
-            <!-- Submit Button -->
+            {# Submit Button #}
             <button type="submit" class="btn btn-primary w-100 mt-2">Log In</button>
 
-            <!-- Forgot Password -->
+            {# Forgot Password Link #}
             <div class="text-center mt-2">
-                <a href="{% url 'password_reset' %}" class="forgot-link">Forgot password?</a>
+                <a href="{% url 'password_reset' %}" class="forgot-link">
+                    Forgot password?
+                </a>
             </div>
 
-            <!-- Sign Up Redirect -->
+            {# Redirect to Signup #}
             <p class="auth-alt-text mt-3">
                 Don’t have an account? <a href="{% url 'signup' %}">Sign up</a>
             </p>
