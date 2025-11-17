@@ -32,7 +32,7 @@
     height: 8px;
 }
 .shelf-row::-webkit-scrollbar-thumb {
-    background: #d60f0f;
+    background: var(--hover-color);
     border-radius: 4px;
 }
 
@@ -86,7 +86,7 @@
 }
 .shelf-title::-webkit-scrollbar-thumb {
 
-    background: #cf1111;
+    background: var(--hover-color);
     border-radius: 4px;
 }
 

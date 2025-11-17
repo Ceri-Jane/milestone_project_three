@@ -26,19 +26,19 @@
                         <div class="shelf-title">{{ movie.title }}</div>
 
                         <div class="shelf-actions">
-                            <form action="{% url 'change_status' movie.id 'TO_WATCH' %}" method="post">
+                            <form action="{% url 'change_status' movie.id 'to_watch' %}" method="post">
                                 {% csrf_token %}
-                                <button class="btn btn-sm btn-primary w-100">🎯 Move to To Watch</button>
+                                <button class="btn btn-sm btn-outline w-100">🎯 To Watch</button>
                             </form>
 
-                            <form action="{% url 'change_status' movie.id 'WATCHED' %}" method="post">
+                            <form action="{% url 'change_status' movie.id 'watched' %}" method="post">
                                 {% csrf_token %}
-                                <button class="btn btn-sm btn-success w-100">✅ Mark as Watched</button>
+                                <button class="btn btn-sm btn-outline w-100">✅ Watched</button>
                             </form>
 
                             <form action="{% url 'remove_movie' movie.id %}" method="post">
                                 {% csrf_token %}
-                                <button class="btn btn-sm btn-danger w-100">🗑 Remove</button>
+                                <button class="btn btn-sm btn-danger w-100">🗑️ Remove</button>
                             </form>
                         </div>
                     </div>
@@ -71,14 +71,14 @@
                         <div class="shelf-title">{{ movie.title }}</div>
 
                         <div class="shelf-actions">
-                            <form action="{% url 'change_status' movie.id 'WATCHED' %}" method="post">
+                            <form action="{% url 'change_status' movie.id 'watched' %}" method="post">
                                 {% csrf_token %}
-                                <button class="btn btn-sm btn-success w-100">✅ Mark as Watched</button>
+                                <button class="btn btn-sm btn-outline w-100">✅ Watched</button>
                             </form>
 
                             <form action="{% url 'remove_movie' movie.id %}" method="post">
                                 {% csrf_token %}
-                                <button class="btn btn-sm btn-danger w-100">🗑 Remove</button>
+                                <button class="btn btn-sm btn-danger w-100">🗑️ Remove</button>
                             </form>
                         </div>
                     </div>
@@ -110,28 +110,36 @@
                             alt="{{ movie.title }}">
                         <div class="shelf-title">{{ movie.title }}</div>
 
-                        <!-- 👍 👎 Like / Dislike Buttons -->
+                        <!-- Like / Dislike Buttons -->
                         <div class="rating-actions">
-                            <form action="{% url 'thumb_up' movie.id %}" method="post">
+
+                            <!-- Thumbs Up -->
+                            <form method="post" action="{% url 'thumb_up' movie.id %}">
                                 {% csrf_token %}
-                                <button class="btn btn-sm {% if movie.rating == 1 %}btn-success{% else %}btn-outline-success{% endif %}">👍</button>
+                                <button class="btn btn-sm {% if movie.rating == 'up' %}btn-success{% else %}btn-outline-success{% endif %}">
+                                    👍
+                                </button>
                             </form>
 
-                            <form action="{% url 'thumb_down' movie.id %}" method="post">
+                            <!-- Thumbs Down -->
+                            <form method="post" action="{% url 'thumb_down' movie.id %}">
                                 {% csrf_token %}
-                                <button class="btn btn-sm {% if movie.rating == -1 %}btn-danger{% else %}btn-outline-danger{% endif %}">👎</button>
+                                <button class="btn btn-sm {% if movie.rating == 'down' %}btn-danger{% else %}btn-outline-danger{% endif %}">
+                                    👎
+                                </button>
                             </form>
+
                         </div>
 
                         <div class="shelf-actions">
-                            <form action="{% url 'change_status' movie.id 'TO_WATCH' %}" method="post">
+                            <form action="{% url 'change_status' movie.id 'to_watch' %}" method="post">
                                 {% csrf_token %}
-                                <button class="btn btn-sm btn-warning w-100">🔄 Move to To Watch</button>
+                                <button class="btn btn-sm btn-outline w-100">🔄 To Watch</button>
                             </form>
 
                             <form action="{% url 'remove_movie' movie.id %}" method="post">
                                 {% csrf_token %}
-                                <button class="btn btn-sm btn-danger w-100">🗑 Remove</button>
+                                <button class="btn btn-sm btn-danger w-100">🗑️ Remove</button>
                             </form>
                         </div>
                     </div>
