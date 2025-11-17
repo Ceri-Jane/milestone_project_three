@@ -12,7 +12,7 @@
 
             <!-- Profile Dropdown -->
             <div class="dropdown">
-                <button class="btn btn-ouline dropdown-toggle"
+                <button class="btn btn-outline dropdown-toggle"
                         type="button"
                         id="profileDropdown"
                         data-bs-toggle="dropdown"
@@ -25,21 +25,50 @@
                 <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end"
                     aria-labelledby="profileDropdown">
 
-                    <li><a class="dropdown-item" href="href="{% url 'profile' %}"">👤 View Profile</a></li>
-                    <li><a class="dropdown-item" href="#">🎬 My Shelf</a></li>
+                    <!-- View Profile -->
+                    <li>
+                        <a class="dropdown-item" href="{% url 'profile' %}">
+                            👤 View Profile
+                        </a>
+                    </li>
+
+                    <!-- My Shelf -->
+                    <li>
+                        <a class="dropdown-item" href="{% url 'my_shelf' %}">
+                            🎬 My Shelf
+                        </a>
+                    </li>
 
                     <li><hr class="dropdown-divider"></li>
 
-                    <li><a class="dropdown-item" href="#">✏️ Change Username</a></li>
-                    <li><a class="dropdown-item" href="#">📧 Change Email</a></li>
-                    <li><a class="dropdown-item" href="#">🔒 Change Password</a></li>
+                    <!-- Account Settings -->
+                    <li>
+                        <a class="dropdown-item" href="{% url 'change_username' %}">
+                            ✏️ Change Username
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item" href="{% url 'change_email' %}">
+                            📧 Change Email
+                        </a>
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item" href="{% url 'password_change' %}">
+                            🔒 Change Password
+                        </a>
+                    </li>
 
                     <li><hr class="dropdown-divider"></li>
 
+                    <!-- Logout -->
                     <li>
                         <form action="{% url 'logout' %}" method="post" class="dropdown-item p-0">
                             {% csrf_token %}
-                            <button type= "submit" class="btn w-100 text-start text-danger" aria-label="Logout">
+                            <button type="submit"
+                                    class="btn w-100 text-start text-danger"
+                                    aria-label="Logout">
                                 🚪 Logout
                             </button>
                         </form>
