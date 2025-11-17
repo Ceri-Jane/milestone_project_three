@@ -1,3 +1,19 @@
+/* CSS Variables */
+:root {
+  --primary-font: "Oswald", sans-serif;
+  --secondary-font: "Limelight", serif;
+  --primary-color: #ffffff;
+  --secondary-color: #000000; 
+  --body-background-color: #2f3c4b;
+  --card-background-colour: #1a1a1a;
+  --rating-color: #ffcf33;
+  --hover-color: #99ffee;
+  --search-button-color: #3700ff;
+  --divider-color: #7a7a7a3d;
+  --shadow-color: #0000006c;
+  --primary-color-transparent: #ffffff8c;
+}
+
 /* Auth Page Layout */
 .auth-wrapper {
     display: flex;
@@ -7,11 +23,11 @@
 }
 
 .auth-card {
-    background: #1d1f23;
+    background: var(--card-background-colour);
     border-radius: 12px;
     padding: 35px 40px;
     width: 380px;
-    box-shadow: 0px 0px 25px rgba(0,0,0,0.45);
+    box-shadow: 0px 0px 25px var(--shadow-color);
 }
 
 /* Title */
@@ -31,9 +47,9 @@
     width: 100%;
     padding: 10px 12px;
     border-radius: 6px;
-    border: 1px solid #666;
-    background: #111;
-    color: white;
+    border: 1px solid var(--secondary-color);
+    background: var(--primary-color-transparent);
+    color: var(--primary-color);
 }
 
 /* Password + Eye Icon */
@@ -68,7 +84,3 @@
     font-size: 14px;
 }
 
-.auth-alt-text a,
-.forgot-link {
-    color: #7ec8ff;
-}
