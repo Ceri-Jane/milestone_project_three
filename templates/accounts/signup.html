@@ -18,7 +18,7 @@
         <h2 class="auth-title">Create Your Account 🍿</h2>
 
         {# Django form-level errors (e.g. password mismatch) #}
-        {% if form.errors %}
+        {% if form.non_field_errors %}
         <div class="alert alert-danger">
             {{ form.non_field_errors }}
         </div>
