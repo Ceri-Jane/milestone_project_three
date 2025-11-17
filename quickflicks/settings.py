@@ -5,6 +5,7 @@ Django settings for quickflicks project.
 from pathlib import Path
 import os
 from decouple import config
+import dj_database_url   # <-- NEW
 
 
 # -------------------------------------------------------------
@@ -21,7 +22,6 @@ SECRET_KEY = config(
     default="django-insecure-placeholder-key-change-in-production",
 )
 
-# Heroku will supply DEBUG via Config Vars
 DEBUG = config("DEBUG", default=True, cast=bool)
 
 ALLOWED_HOSTS = [
@@ -90,13 +90,14 @@ WSGI_APPLICATION = "quickflicks.wsgi.application"
 
 
 # -------------------------------------------------------------
-# DATABASE (SQLite for Dev)
+# DATABASE (NOW USING POSTGRES ON HEROKU)
 # -------------------------------------------------------------
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+    "default": dj_database_url.config(
+        default="postgres://localhost",
+        conn_max_age=600,
+        ssl_require=True
+    )
 }
 
 
@@ -144,7 +145,7 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
 # -------------------------------------------------------------
-# MAILTRAP SMTP EMAIL CONFIG (from Heroku config vars)
+# MAILTRAP SMTP EMAIL CONFIG
 # -------------------------------------------------------------
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
@@ -158,12 +159,11 @@ EMAIL_USE_TLS = config("EMAIL_USE_TLS", default=True, cast=bool)
 
 DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL", default="noreply@quickflicks.com")
 
-# Prevent Django from crashing if email fails (Heroku recommended)
 EMAIL_FAIL_SILENTLY = False
 
 
 # -------------------------------------------------------------
-# LOGGING (so Heroku shows real errors)
+# LOGGING
 # -------------------------------------------------------------
 LOGGING = {
     "version": 1,
@@ -184,7 +184,6 @@ LOGGING = {
 TMDB_API_KEY = config("TMDB_API_KEY", default="")
 
 if not TMDB_API_KEY:
-    # Optional: log a warning instead of crashing
     import logging
     logger = logging.getLogger(__name__)
     logger.warning("TMDB_API_KEY is not set – TMDB features will be disabled.")
