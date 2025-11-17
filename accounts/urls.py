@@ -1,22 +1,21 @@
 # -------------------------------------------------------------
 # Accounts URL Configuration
 # -------------------------------------------------------------
-# This file was updated to align with the revised authentication
-# structure used in this project.
+# This file configures all authentication and user-account related
+# routes for the project.
 #
-# - The early prototype used custom login_view/logout_view,
-#   but the final project uses Django’s built-in
-#   LoginView and LogoutView for reliability, security,
-#   and reduced boilerplate.
+# Key updates:
+# - Uses Django's built-in LoginView + LogoutView for security,
+#   session handling, and reduced boilerplate.
+# - Custom views handle signup, profile, and account updates.
+# - Added Django’s full password reset system (4-step workflow):
+#     • password_reset                → user enters email
+#     • password_reset_done           → “email sent” page
+#     • password_reset_confirm        → user sets a new password
+#     • password_reset_complete       → confirmation screen
 #
-# - The signup, profile, change email, and change username
-#   views are custom and imported from accounts.views.
-#
-# - LoginView is pointed to a custom template so it matches
-#   the visual styling of the signup page.
-#
-# - This update resolves import errors where the old URLs
-#   referenced non-existent view functions.
+# These are mapped to custom templates so the styling matches the
+# signup/login pages already built.
 # -------------------------------------------------------------
 
 from django.urls import path
@@ -24,15 +23,64 @@ from django.contrib.auth import views as auth_views
 from . import views
 
 urlpatterns = [
-    # Django Auth Views (login/logout)
-    path("login/", auth_views.LoginView.as_view(template_name="accounts/login.html"), name="login"),
+    # ---------------------------------------------------------
+    # AUTHENTICATION (Login / Logout)
+    # ---------------------------------------------------------
+    path(
+        "login/",
+        auth_views.LoginView.as_view(template_name="accounts/login.html"),
+        name="login",
+    ),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
 
-    # Custom signup view
+    # ---------------------------------------------------------
+    # SIGNUP (Custom)
+    # ---------------------------------------------------------
     path("signup/", views.signup, name="signup"),
 
-    # Profile + user settings
+    # ---------------------------------------------------------
+    # USER SETTINGS / PROFILE
+    # ---------------------------------------------------------
     path("profile/", views.profile, name="profile"),
     path("change-email/", views.change_email, name="change_email"),
     path("change-username/", views.change_username, name="change_username"),
+
+    # ---------------------------------------------------------
+    # PASSWORD RESET WORKFLOW (Django built-in)
+    # ---------------------------------------------------------
+    # 1) Enter email
+    path(
+        "password-reset/",
+        auth_views.PasswordResetView.as_view(
+            template_name="accounts/password_reset.html"
+        ),
+        name="password_reset",
+    ),
+
+    # 2) Email sent confirmation
+    path(
+        "password-reset-sent/",
+        auth_views.PasswordResetDoneView.as_view(
+            template_name="accounts/password_reset_sent.html"
+        ),
+        name="password_reset_done",
+    ),
+
+    # 3) Link from email → set new password
+    path(
+        "password-reset-confirm/<uidb64>/<token>/",
+        auth_views.PasswordResetConfirmView.as_view(
+            template_name="accounts/password_reset_confirm.html"
+        ),
+        name="password_reset_confirm",
+    ),
+
+    # 4) Final success page
+    path(
+        "password-reset-complete/",
+        auth_views.PasswordResetCompleteView.as_view(
+            template_name="accounts/password_reset_complete.html"
+        ),
+        name="password_reset_complete",
+    ),
 ]

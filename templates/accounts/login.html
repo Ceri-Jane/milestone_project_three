@@ -1,1 +1,90 @@
-<h1>Login page placeholder</h1>
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+{# ------------------------------------------------------------ #}
+{#  LOGIN PAGE                                                  #}
+{#  - Supports login via username OR email                      #}
+{#  - Errors shown using Bootstrap's alert & invalid-feedback   #}
+{#  - Password field includes eye-toggle handled by auth.js     #}
+{#  - Browser validation enabled (no novalidate) for UX         #}
+{# ------------------------------------------------------------ #}
+
+<div class="auth-wrapper">
+    <div class="auth-card">
+
+        <h2 class="auth-title">Welcome Back 🎬</h2>
+
+        {# Global form errors (e.g. wrong password) #}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-danger">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <!-- Username or Email -->
+            <div class="form-group mb-3">
+                <label for="id_identifier" class="form-label">Username or Email</label>
+                <input
+                    type="text"
+                    name="identifier"
+                    id="id_identifier"
+                    class="form-control {% if form.identifier.errors %}is-invalid{% endif %}"
+                    placeholder="Enter username or email"
+                    required
+                    value="{{ form.identifier.value|default:'' }}"
+                >
+                {% if form.identifier.errors %}
+                <div class="invalid-feedback">
+                    {{ form.identifier.errors.0 }}
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Password -->
+            <div class="form-group mb-3">
+                <label for="id_password" class="form-label">Password</label>
+
+                <div class="password-row">
+                    <input
+                        type="password"
+                        name="password"
+                        id="id_password"
+                        class="form-control {% if form.password.errors %}is-invalid{% endif %}"
+                        placeholder="Enter your password"
+                        required
+                    >
+                    <svg class="password-toggle" onclick="togglePassword('id_password')" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                        <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/>
+                        <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                </div>
+
+                {% if form.password.errors %}
+                <div class="invalid-feedback d-block">
+                    {{ form.password.errors.0 }}
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary w-100 mt-2">Log In</button>
+
+            <!-- Forgot Password -->
+            <div class="text-center mt-2">
+                <a href="{% url 'password_reset' %}" class="forgot-link">Forgot password?</a>
+            </div>
+
+            <!-- Sign Up Redirect -->
+            <p class="auth-alt-text mt-3">
+                Don’t have an account? <a href="{% url 'signup' %}">Sign up</a>
+            </p>
+
+        </form>
+    </div>
+</div>
+
+{% endblock %}
