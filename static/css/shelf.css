@@ -1,0 +1,243 @@
+/* =========================================
+   SHELF ROW + SCROLL LAYOUT
+========================================= */
+
+.shelf-wrapper {
+    position: relative;
+}
+
+.shelf-row {
+    display: flex;
+    gap: 22px;
+    overflow-x: auto;
+    padding: 0 60px 14px;
+    scroll-behavior: smooth;
+}
+
+.shelf-row::-webkit-scrollbar {
+    height: 8px;
+}
+.shelf-row::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 4px;
+}
+
+/* =========================================
+   SHELF CARD (MATCHING HTML)
+========================================= */
+
+.shelf-card {
+    width: 160px;
+    flex-shrink: 0;
+    background: #1e1e1e;
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 0 12px rgba(0,0,0,0.4);
+    border: 1px solid #333;
+    justify-content: space-between;
+}
+
+/* Poster */
+.shelf-card img {
+    width: 140px;
+    height: 210px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 6px;
+}
+
+/* Title (fixed height + scrollable) */
+.shelf-title {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.2;
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
+    text-align: center;
+    width: 140px; /* consistent width */
+    height: 60px; /* fixed height for alignment */
+    overflow-y: auto; /* scroll only if text too long */
+    padding-right: 4px;
+    margin: 0 auto 10px;
+}
+
+/* Scrollbar styling for long titles */
+.shelf-title::-webkit-scrollbar {
+    width: 4px;
+}
+.shelf-title::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 4px;
+}
+
+/* Buttons stay aligned at bottom */
+.shelf-actions {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+}
+
+/* =========================================
+   SCROLL ARROWS
+========================================= */
+
+.scroll-left,
+.scroll-right {
+    position: absolute;
+    top: 0;
+    width: 45px;
+    height: 100%;
+    display: none;
+    cursor: pointer;
+    z-index: 5;
+}
+
+@media (pointer: fine) {
+    .scroll-left,
+    .scroll-right {
+        display: block;
+    }
+}
+
+.scroll-left {
+    left: 0;
+    background: linear-gradient(to right, rgba(0,0,0,0.4), transparent);
+}
+
+.scroll-right {
+    right: 0;
+    background: linear-gradient(to left, rgba(0,0,0,0.4), transparent);
+}
+
+.scroll-left::after,
+.scroll-right::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 22px;
+    height: 22px;
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+.scroll-left::after {
+    left: 10px;
+    border-top: 4px solid white;
+    border-left: 4px solid white;
+    transform: translateY(-50%) rotate(-45deg);
+}
+
+.scroll-right::after {
+    right: 10px;
+    border-top: 4px solid white;
+    border-right: 4px solid white;
+    transform: translateY(-50%) rotate(45deg);
+}
+
+.scroll-left:hover::after,
+.scroll-right:hover::after {
+    opacity: 1;
+}
+
+/* =========================================
+   ACCORDION
+========================================= */
+
+.accordion-item {
+    margin-top: 20px;
+    border: 1px solid #444;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.accordion-header {
+    width: 100%;
+    background: #222;
+    color: #fff;
+    padding: 12px;
+    text-align: left;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    position: relative;
+}
+
+.accordion-header::after {
+    content: "▼";
+    position: absolute;
+    right: 14px;
+    transition: transform 0.3s;
+}
+
+.accordion-item.open .accordion-header::after {
+    transform: rotate(180deg);
+}
+
+.accordion-content {
+    background: #2c2c2c;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+    padding: 0 12px;
+}
+
+.accordion-item.open .accordion-content {
+    max-height: 900px;
+    padding: 12px;
+}
+
+/* =========================================
+   WATCHED SHELF (FIXED ALIGNMENT)
+========================================= */
+
+.watched-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-height: 410px;
+    position: relative;
+}
+
+/* Poster */
+.watched-card img {
+    margin-bottom: 6px;
+}
+
+/* Fixed-size scrollable title */
+.watched-card .shelf-title {
+    width: 140px;
+    height: 60px; /* fixed height to align all cards */
+    overflow-y: auto;
+    text-align: center;
+    padding-right: 4px;
+    margin: 0 auto 8px;
+}
+
+/* 👍👎 buttons fixed above the yellow button */
+.watched-card .rating-actions {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: auto;
+    margin-bottom: 6px;
+}
+
+/* Shelf buttons stay stacked below */
+.watched-card .shelf-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+}
+
+.watched-card .btn {
+    font-size: 14px;
+    padding: 4px 10px;
+}
