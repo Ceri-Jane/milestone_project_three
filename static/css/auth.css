@@ -1,0 +1,74 @@
+/* Auth Page Layout */
+.auth-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+
+.auth-card {
+    background: #1d1f23;
+    border-radius: 12px;
+    padding: 35px 40px;
+    width: 380px;
+    box-shadow: 0px 0px 25px rgba(0,0,0,0.45);
+}
+
+/* Title */
+.auth-title {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+/* Form Fields */
+.form-group label {
+    font-size: 14px;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid #666;
+    background: #111;
+    color: white;
+}
+
+/* Password + Eye Icon */
+.password-row {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-row input {
+    width: 100%;
+    padding-right: 35px;
+}
+
+.password-toggle {
+    width: 22px;
+    height: 22px;
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    opacity: 0.75;
+}
+
+.password-toggle:hover {
+    opacity: 1;
+}
+
+/* Secondary Text */
+.auth-alt-text {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.auth-alt-text a,
+.forgot-link {
+    color: #7ec8ff;
+}
