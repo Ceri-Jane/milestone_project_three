@@ -1,6 +1,20 @@
-/* =========================================
-   SHELF ROW + SCROLL LAYOUT
-========================================= */
+/* CSS Variables */
+:root {
+  --primary-font: "Oswald", sans-serif;
+  --secondary-font: "Limelight", serif;
+  --primary-color: #ffffff;
+  --secondary-color: #000000; 
+  --body-background-color: #2f3c4b;
+  --card-background-colour: #1a1a1a;
+  --rating-color: #ffcf33;
+  --hover-color: #99ffee;
+  --search-button-color: #3700ff;
+  --divider-color: #7a7a7a3d;
+  --shadow-color: #0000006c;
+  --primary-color-transparent: #ffffff8c;
+}
+
+/* Shelf Row & Scroll Layout */
 
 .shelf-wrapper {
     position: relative;
@@ -18,30 +32,29 @@
     height: 8px;
 }
 .shelf-row::-webkit-scrollbar-thumb {
-    background: #444;
+    background: #d60f0f;
     border-radius: 4px;
 }
 
-/* =========================================
-   SHELF CARD (MATCHING HTML)
-========================================= */
+/* Shelf Card */
 
 .shelf-card {
     width: 160px;
     flex-shrink: 0;
-    background: #1e1e1e;
+    background: var(--card-background-colour);
     border-radius: 8px;
     padding: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    box-shadow: 0 0 12px rgba(0,0,0,0.4);
-    border: 1px solid #333;
+    box-shadow: 0 0 12px var(--shadow-color);
+    border: 1px solid var(--secondary-color);
     justify-content: space-between;
 }
 
 /* Poster */
+
 .shelf-card img {
     width: 140px;
     height: 210px;
@@ -51,6 +64,7 @@
 }
 
 /* Title (fixed height + scrollable) */
+
 .shelf-title {
     font-size: 14px;
     font-weight: bold;
@@ -66,11 +80,13 @@
 }
 
 /* Scrollbar styling for long titles */
+
 .shelf-title::-webkit-scrollbar {
     width: 4px;
 }
 .shelf-title::-webkit-scrollbar-thumb {
-    background: #555;
+
+    background: #cf1111;
     border-radius: 4px;
 }
 
@@ -83,9 +99,7 @@
     width: 100%;
 }
 
-/* =========================================
-   SCROLL ARROWS
-========================================= */
+/* Scroll Arrows */
 
 .scroll-left,
 .scroll-right {
@@ -107,12 +121,12 @@
 
 .scroll-left {
     left: 0;
-    background: linear-gradient(to right, rgba(0,0,0,0.4), transparent);
+    background: linear-gradient(to right, var(--shadow-color), transparent);
 }
 
 .scroll-right {
     right: 0;
-    background: linear-gradient(to left, rgba(0,0,0,0.4), transparent);
+    background: linear-gradient(to left, var(--shadow-color), transparent);
 }
 
 .scroll-left::after,
@@ -129,15 +143,15 @@
 
 .scroll-left::after {
     left: 10px;
-    border-top: 4px solid white;
-    border-left: 4px solid white;
+    border-top: 4px solid var(--primary-color);
+    border-left: 4px solid var(--primary-color);
     transform: translateY(-50%) rotate(-45deg);
 }
 
 .scroll-right::after {
     right: 10px;
-    border-top: 4px solid white;
-    border-right: 4px solid white;
+    border-top: 4px solid var(--primary-color);
+    border-right: 4px solid var(--primary-color);
     transform: translateY(-50%) rotate(45deg);
 }
 
@@ -146,21 +160,19 @@
     opacity: 1;
 }
 
-/* =========================================
-   ACCORDION
-========================================= */
+/* Accordion */
 
 .accordion-item {
     margin-top: 20px;
-    border: 1px solid #444;
+    border: 1px solid var(--secondary-color);
     border-radius: 6px;
     overflow: hidden;
 }
 
 .accordion-header {
     width: 100%;
-    background: #222;
-    color: #fff;
+    background: var(--secondary-color);
+    color: var(--primary-color);
     padding: 12px;
     text-align: left;
     border: none;
@@ -181,7 +193,7 @@
 }
 
 .accordion-content {
-    background: #2c2c2c;
+    background: var(--card-background-colour);
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.35s ease;
@@ -193,9 +205,7 @@
     padding: 12px;
 }
 
-/* =========================================
-   WATCHED SHELF (FIXED ALIGNMENT)
-========================================= */
+/*  WATCHED SHELF (FIXED ALIGNMENT) */
 
 .watched-card {
     display: flex;
@@ -206,11 +216,13 @@
 }
 
 /* Poster */
+
 .watched-card img {
     margin-bottom: 6px;
 }
 
 /* Fixed-size scrollable title */
+
 .watched-card .shelf-title {
     width: 140px;
     height: 60px; /* fixed height to align all cards */
@@ -221,6 +233,7 @@
 }
 
 /* 👍👎 buttons fixed above the yellow button */
+
 .watched-card .rating-actions {
     display: flex;
     justify-content: center;
@@ -230,6 +243,7 @@
 }
 
 /* Shelf buttons stay stacked below */
+
 .watched-card .shelf-actions {
     display: flex;
     flex-direction: column;
