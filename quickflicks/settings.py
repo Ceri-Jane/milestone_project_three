@@ -181,4 +181,10 @@ LOGGING = {
 # -------------------------------------------------------------
 # API KEYS
 # -------------------------------------------------------------
-TMDB_API_KEY = config("TMDB_API_KEY")
+TMDB_API_KEY = config("TMDB_API_KEY", default="")
+
+if not TMDB_API_KEY:
+    # Optional: log a warning instead of crashing
+    import logging
+    logger = logging.getLogger(__name__)
+    logger.warning("TMDB_API_KEY is not set – TMDB features will be disabled.")
