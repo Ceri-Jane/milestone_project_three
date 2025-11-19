@@ -8,13 +8,6 @@ from django.utils.http import urlencode
 from movies.models import Movie
 from .models import GroupProfile
 
-# -----------------------------
-# Custom Admin Branding
-# -----------------------------
-admin.site.site_header = "QuickFlicks Administration"
-admin.site.site_title = "QuickFlicks Admin Portal"
-admin.site.index_title = "Manage Users, Groups & Movies"
-
 
 # -----------------------------
 # USER ADMIN CUSTOMISATIONS
@@ -27,7 +20,7 @@ group_list.short_description = "Groups"
 
 
 def total_movies(obj):
-    """Clickable count → jump to Movies filtered by user."""
+    """Clickable count → takes admin to filtered Movie list."""
     count = Movie.objects.filter(user=obj).count()
 
     url = (
@@ -53,28 +46,22 @@ class CustomUserAdmin(UserAdmin):
 
     list_filter = ("is_staff", "is_superuser", "is_active", "groups")
 
-    ordering = ("-date_joined",)
-
     fieldsets = (
         (None, {"fields": ("username", "password")}),
         ("Personal info", {"fields": ("email",)}),
-        (
-            "Permissions",
-            {
-                "fields": (
-                    "is_active",
-                    "is_staff",
-                    "is_superuser",
-                    "groups",
-                    "user_permissions",
-                )
-            },
-        ),
+        ("Permissions", {
+            "fields": (
+                "is_active",
+                "is_staff",
+                "is_superuser",
+                "groups",
+                "user_permissions",
+            )
+        }),
         ("Important dates", {"fields": ("last_login", "date_joined")}),
     )
 
 
-# Replace default User admin
 admin.site.unregister(User)
 admin.site.register(User, CustomUserAdmin)
 
@@ -84,7 +71,7 @@ admin.site.register(User, CustomUserAdmin)
 # -----------------------------
 
 def member_count(obj):
-    """Clickable link showing how many users in this group."""
+    """Clickable number showing how many users in the group."""
     from django.contrib.auth import get_user_model
     User = get_user_model()
 
@@ -104,23 +91,17 @@ def total_permissions(obj):
 total_permissions.short_description = "Permissions"
 
 
-class GroupProfileInline(admin.StackedInline):
-    model = GroupProfile
-    can_delete = False
-    verbose_name = "Description"
-    fk_name = "group"
-    fields = ("description",)
-
-
 class CustomGroupAdmin(admin.ModelAdmin):
+    """
+    Clean Group admin — shows description but does NOT create/modify profiles.
+    Creation is handled by signals to avoid duplicate GroupProfile rows.
+    """
     list_display = ("name", member_count, total_permissions, "get_description")
-    inlines = [GroupProfileInline]
 
     def get_description(self, obj):
         return getattr(obj.profile, "description", "")
     get_description.short_description = "Description"
 
 
-# Replace default Group admin
 admin.site.unregister(Group)
 admin.site.register(Group, CustomGroupAdmin)
