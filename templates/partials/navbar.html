@@ -64,12 +64,11 @@
 
                     <!-- Logout -->
                     <li>
-                        <form action="{% url 'logout' %}" method="post" class="dropdown-item p-0">
+                        <form method="post" action="{% url 'logout' %}" class="px-3 py-2">
                             {% csrf_token %}
-                            <button type="submit"
-                                    class="btn w-100 text-start text-danger"
-                                    aria-label="Logout">
-                                🚪 Logout
+                            <button type="submit" class="btn btn-danger w-100 d-flex align-items-center justify-content-center gap-2">
+                                <span aria-hidden="true">🚪</span>
+                                Logout
                             </button>
                         </form>
                     </li>
