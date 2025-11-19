@@ -13,19 +13,18 @@ from django.contrib import admin
 from django.urls import path, include
 from django.shortcuts import render
 
+
 def home(request):
     return render(request, "movies/home.html")
 
-urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("", include("movies.urls")),   # home + search
-    path("accounts/", include("accounts.urls")),  # FIX
-]
 
 def about_page(request):
     return render(request, "about.html")
 
+
 urlpatterns = [
-    ...
-    path("about/", about_page, name="about"),
+    path("admin/", admin.site.urls),
+    path("", include("movies.urls")),                  # home + search
+    path("accounts/", include("accounts.urls")),       # login, signup, profile
+    path("about/", about_page, name="about"),          # About page
 ]

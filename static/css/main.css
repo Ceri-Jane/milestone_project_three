@@ -270,6 +270,12 @@ a:hover {
     color: var(--hover-color);
 }
 
+/* About page */
+
+.about-container {
+    max-width: 800px;
+}
+
 /* Footer */
 
 .footer {
@@ -287,3 +293,4 @@ a:hover {
     letter-spacing: 0.5px;
     margin: 0;
 }
+
