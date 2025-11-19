@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="auth-wrapper">
+    <div class="auth-card">
+
+        <h2 class="auth-title">Change Username ✏️</h2>
+
+        <!-- Show form validation errors -->
+        {% if form.errors %}
+            <div class="form-errors">
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <p class="error-text">{{ error }}</p>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="form-group mb-3">
+                <label for="{{ form.username.id_for_label }}" class="auth-label">
+                    New Username
+                </label>
+                {{ form.username }}
+            </div>
+
+            <button class="btn-outline w-100" type="submit">
+                Save New Username
+            </button>
+        </form>
+
+        <p class="auth-alt-text mt-3">
+            <a href="{% url 'profile' %}">← Back to Profile</a>
+        </p>
+
+    </div>
+</div>
+
+{% endblock %}
