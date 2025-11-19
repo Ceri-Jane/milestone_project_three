@@ -1,19 +1,8 @@
 # -------------------------------------------------------------
 # Accounts URL Configuration
 # -------------------------------------------------------------
-# This file configures all authentication and user-account related
-# routes for the project.
-#
-# Key updates:
-# - Now uses *custom* login_view (email OR username support)
-#   instead of Django’s LoginView, so that:
-#       • errors display correctly
-#       • email login works
-#       • form.non_field_errors() is populated
-#       • our LoginForm is used
-#
-# - Logout continues to use Django's LogoutView.
-# - Added Django’s full password reset workflow (4 screens).
+# Handles authentication, signup, profile management,
+# password reset, and user account settings.
 # -------------------------------------------------------------
 
 from django.urls import path
@@ -21,6 +10,7 @@ from django.contrib.auth import views as auth_views
 from . import views
 
 urlpatterns = [
+
     # ---------------------------------------------------------
     # AUTHENTICATION (Custom Login / Django Logout)
     # ---------------------------------------------------------
@@ -33,14 +23,33 @@ urlpatterns = [
     path("signup/", views.signup, name="signup"),
 
     # ---------------------------------------------------------
-    # USER SETTINGS / PROFILE
+    # USER SETTINGS / PROFILE (User must already be logged in)
     # ---------------------------------------------------------
     path("profile/", views.profile, name="profile"),
     path("change-email/", views.change_email, name="change_email"),
     path("change-username/", views.change_username, name="change_username"),
 
     # ---------------------------------------------------------
-    # PASSWORD RESET WORKFLOW (Django built-in)
+    # PASSWORD CHANGE (User must already be logged in)
+    # ---------------------------------------------------------
+    path(
+        "password-change/",
+        auth_views.PasswordChangeView.as_view(
+            template_name="accounts/change_password_form.html",
+            success_url="/accounts/password-change-done/",
+        ),
+        name="password_change",
+    ),
+    path(
+        "password-change-done/",
+        auth_views.PasswordChangeDoneView.as_view(
+            template_name="accounts/change_password_done.html"
+        ),
+        name="password_change_done",
+    ),
+
+    # ---------------------------------------------------------
+    # PASSWORD RESET WORKFLOW (Forgot password – not logged in)
     # ---------------------------------------------------------
     path(
         "password-reset/",
