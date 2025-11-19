@@ -111,24 +111,24 @@
                         <div class="shelf-title">{{ movie.title }}</div>
 
                         <!-- Like / Dislike Buttons -->
+                        
                         <div class="rating-actions">
-
                             <!-- Thumbs Up -->
-                            <form method="post" action="{% url 'thumb_up' movie.id %}">
+                             <form method="post" action="{% url 'thumb_up' movie.id %}">
                                 {% csrf_token %}
-                                <button class="btn btn-sm {% if movie.rating == 'up' %}btn-success{% else %}btn-outline-success{% endif %}">
-                                    👍
+                                <button class="rating-btn up {% if movie.rating == 'up' %}active{% endif %}">
+                                    <img src="{% static 'icons/thumb-up-solid.svg' %}" alt="Thumbs up">
                                 </button>
                             </form>
-
+                            
                             <!-- Thumbs Down -->
-                            <form method="post" action="{% url 'thumb_down' movie.id %}">
+                             <form method="post" action="{% url 'thumb_down' movie.id %}">
                                 {% csrf_token %}
-                                <button class="btn btn-sm {% if movie.rating == 'down' %}btn-danger{% else %}btn-outline-danger{% endif %}">
-                                    👎
+                                <button class="rating-btn down {% if movie.rating == 'down' %}active{% endif %}">
+                                    <img src="{% static 'icons/thumb-down-solid.svg' %}" alt="Thumbs down">
                                 </button>
                             </form>
-
+                        
                         </div>
 
                         <div class="shelf-actions">

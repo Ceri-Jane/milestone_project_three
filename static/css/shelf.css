@@ -256,6 +256,36 @@
     padding: 4px 10px;
 }
 
+/* Rating buttons */
+
+.rating-btn {
+    background: transparent;
+    border: 2px solid var(--primary-color);
+    padding: 6px;
+    border-radius: 6px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rating-btn img {
+    width: 22px;
+    height: 22px;
+}
+
+/* Active states */
+.rating-btn.up.active {
+    background: #198754; /* Bootstrap success */
+    border-color: #198754;
+}
+
+.rating-btn.down.active {
+    background: #dc3545; /* Bootstrap danger */
+    border-color: #dc3545;
+}
+
 /* ============================
    MOBILE FIX — Reduce side padding
 ============================ */
