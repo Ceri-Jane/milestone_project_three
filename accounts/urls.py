@@ -43,10 +43,11 @@ urlpatterns = [
     path(
         "password-change-done/",
         auth_views.PasswordChangeDoneView.as_view(
-            template_name="accounts/change_password_done.html"
-        ),
+            template_name="accounts/password_change_done.html"
+            ),
         name="password_change_done",
-    ),
+        ),
+
 
     # ---------------------------------------------------------
     # PASSWORD RESET WORKFLOW (Forgot password – not logged in)
