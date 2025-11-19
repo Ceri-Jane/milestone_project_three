@@ -8,6 +8,13 @@ from django.utils.http import urlencode
 from movies.models import Movie
 from .models import GroupProfile
 
+# -----------------------------
+# Custom Admin Branding
+# -----------------------------
+admin.site.site_header = "QuickFlicks Administration"
+admin.site.site_title = "QuickFlicks Admin Portal"
+admin.site.index_title = "Manage Users, Groups & Movies"
+
 
 # -----------------------------
 # USER ADMIN CUSTOMISATIONS
@@ -20,7 +27,7 @@ group_list.short_description = "Groups"
 
 
 def total_movies(obj):
-    """Clickable count → takes admin to filtered Movie list."""
+    """Clickable count → jump to Movies filtered by user."""
     count = Movie.objects.filter(user=obj).count()
 
     url = (
@@ -46,18 +53,23 @@ class CustomUserAdmin(UserAdmin):
 
     list_filter = ("is_staff", "is_superuser", "is_active", "groups")
 
+    ordering = ("-date_joined",)
+
     fieldsets = (
         (None, {"fields": ("username", "password")}),
         ("Personal info", {"fields": ("email",)}),
-        ("Permissions", {
-            "fields": (
-                "is_active",
-                "is_staff",
-                "is_superuser",
-                "groups",
-                "user_permissions",
-            )
-        }),
+        (
+            "Permissions",
+            {
+                "fields": (
+                    "is_active",
+                    "is_staff",
+                    "is_superuser",
+                    "groups",
+                    "user_permissions",
+                )
+            },
+        ),
         ("Important dates", {"fields": ("last_login", "date_joined")}),
     )
 
@@ -72,7 +84,7 @@ admin.site.register(User, CustomUserAdmin)
 # -----------------------------
 
 def member_count(obj):
-    """Clickable number showing how many users in the group."""
+    """Clickable link showing how many users in this group."""
     from django.contrib.auth import get_user_model
     User = get_user_model()
 
@@ -103,15 +115,6 @@ class GroupProfileInline(admin.StackedInline):
 class CustomGroupAdmin(admin.ModelAdmin):
     list_display = ("name", member_count, total_permissions, "get_description")
     inlines = [GroupProfileInline]
-
-    def get_inline_instances(self, request, obj=None):
-        """
-        Prevent inline from appearing when adding a new group.
-        This avoids duplicate GroupProfile creation.
-        """
-        if obj is None:  # creating NEW group
-            return []
-        return super().get_inline_instances(request, obj)
 
     def get_description(self, obj):
         return getattr(obj.profile, "description", "")

@@ -20,20 +20,17 @@ class Movie(models.Model):
         ("none", "No Rating"),
     ]
 
-    # The user who saved the movie
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    # Movie Details
     title = models.CharField(max_length=255)
     tmdb_id = models.CharField(max_length=20)
     poster_url = models.URLField(blank=True, null=True)
 
-    # Shelf + Rating
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="to_watch")
     rating = models.CharField(max_length=10, choices=RATING_CHOICES, default="none")
 
-    # Timestamp for ordering
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)   # ⭐ ADD THIS
 
     def __str__(self):
         return f"{self.title} ({self.user.username})"
