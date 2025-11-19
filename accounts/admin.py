@@ -91,26 +91,33 @@ def total_permissions(obj):
 total_permissions.short_description = "Permissions"
 
 
+class GroupProfileInline(admin.StackedInline):
+    """
+    SAFE inline:
+    - Only edits an existing GroupProfile
+    - Does NOT allow adding or deleting (prevents duplicates)
+    """
+    model = GroupProfile
+    can_delete = False
+    extra = 0
+    max_num = 1
+
+    # user can edit description
+    fields = ("description",)
+
+    # group field MUST NOT appear (it would create duplicates)
+    exclude = ("group",)
+
+    def has_add_permission(self, request, obj=None):
+        return False   # prevents creating new profiles
+
+    def has_change_permission(self, request, obj=None):
+        return True    # superuser can edit description
+
+
 class CustomGroupAdmin(admin.ModelAdmin):
-    """
-    Clean Group admin — shows description but does NOT create/modify profiles.
-    Creation is handled by signals to avoid duplicate GroupProfile rows.
-    """
-
     list_display = ("name", member_count, total_permissions, "get_description")
-    readonly_fields = ("description_preview",)
-
-    fieldsets = (
-        (None, {"fields": ("name", "permissions")}),
-        ("Profile Description", {"fields": ("description_preview",)}),
-    )
-
-    def description_preview(self, obj):
-        """Display description from the related GroupProfile (readonly)."""
-        if hasattr(obj, "profile"):
-            return obj.profile.description
-        return "—"
-    description_preview.short_description = "Description"
+    inlines = [GroupProfileInline]
 
     def get_description(self, obj):
         return getattr(obj.profile, "description", "")
@@ -119,3 +126,4 @@ class CustomGroupAdmin(admin.ModelAdmin):
 
 admin.site.unregister(Group)
 admin.site.register(Group, CustomGroupAdmin)
+
