@@ -232,7 +232,7 @@
     margin: 0 auto 8px;
 }
 
-/* 👍👎 buttons fixed above the yellow button */
+/* buttons fixed above the yellow button */
 
 .watched-card .rating-actions {
     display: flex;
@@ -254,4 +254,18 @@
 .watched-card .btn {
     font-size: 14px;
     padding: 4px 10px;
+}
+
+/* ============================
+   MOBILE FIX — Reduce side padding
+============================ */
+@media (max-width: 768px) {
+    .shelf-row {
+        padding: 0 10px 14px;   /* was 60px — now fits mobile screens */
+        gap: 16px;              /* slightly smaller gap for narrow view */
+    }
+
+    .shelf-card {
+        width: 150px;           /* Fits more naturally */
+    }
 }
