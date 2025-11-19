@@ -41,28 +41,30 @@
 
                     <li><hr class="dropdown-divider"></li>
 
-                    <!-- Account Settings -->
+                    <!-- Change Username -->
                     <li>
-                        <a class="dropdown-item" href="#}">
+                        <a class="dropdown-item" href="{% url 'change_username' %}">
                             ✏️ Change Username
                         </a>
                     </li>
 
+                    <!-- Change Email -->
                     <li>
-                        <a class="dropdown-item" href="#">
+                        <a class="dropdown-item" href="{% url 'change_email' %}">
                             📧 Change Email
                         </a>
                     </li>
 
+                    <!-- Change Password -->
                     <li>
-                        <a class="dropdown-item" href="#">
-                            🔒 Change Password
+                        <a class="dropdown-item" href="{% url 'change_password' %}">
+                            🔐 Change Password
                         </a>
                     </li>
 
                     <li><hr class="dropdown-divider"></li>
 
-                    <!-- Logout -->
+                    <!-- Logout Button -->
                     <li>
                         <form method="post" action="{% url 'logout' %}" class="px-3 py-2">
                             {% csrf_token %}
@@ -78,12 +80,14 @@
 
             {% else %}
 
+            <!-- Login -->
             <a class="btn btn-outline me-2"
                href="{% url 'login' %}"
                aria-label="Login to your QuickFlicks account">
                 Login
             </a>
 
+            <!-- Sign Up -->
             <a class="btn btn-outline"
                href="{% url 'signup' %}"
                aria-label="Create a QuickFlicks account">
