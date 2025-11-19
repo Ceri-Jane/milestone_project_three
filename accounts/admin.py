@@ -96,7 +96,21 @@ class CustomGroupAdmin(admin.ModelAdmin):
     Clean Group admin — shows description but does NOT create/modify profiles.
     Creation is handled by signals to avoid duplicate GroupProfile rows.
     """
+
     list_display = ("name", member_count, total_permissions, "get_description")
+    readonly_fields = ("description_preview",)
+
+    fieldsets = (
+        (None, {"fields": ("name", "permissions")}),
+        ("Profile Description", {"fields": ("description_preview",)}),
+    )
+
+    def description_preview(self, obj):
+        """Display description from the related GroupProfile (readonly)."""
+        if hasattr(obj, "profile"):
+            return obj.profile.description
+        return "—"
+    description_preview.short_description = "Description"
 
     def get_description(self, obj):
         return getattr(obj.profile, "description", "")
