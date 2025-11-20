@@ -13,18 +13,24 @@
 {#  - Structure follows accessibility best practices            #}
 {# ------------------------------------------------------------ #}
 
-<div class="auth-wrapper">
+<!-- Adding a region landmark so assistive tech knows what this section is -->
+<div class="auth-wrapper" role="region" aria-labelledby="signup-title">
     <div class="auth-card">
-        <h2 class="auth-title">Create Your Account 🍿</h2>
+
+        <!-- Page heading used for both visual users and screen readers -->
+        <h2 class="auth-title" id="signup-title">Create Your Account 🍿</h2>
 
         {# Django form-level errors (e.g. password mismatch) #}
         {% if form.non_field_errors %}
-        <div class="alert alert-danger">
+        <div class="alert alert-danger"
+             role="alert"
+             aria-live="assertive">
             {{ form.non_field_errors }}
         </div>
         {% endif %}
 
-        <form method="POST">
+        <!-- Main signup form -->
+        <form method="POST" aria-label="Create a new QuickFlicks account">
             {% csrf_token %}
 
             <!-- Username -->
@@ -38,10 +44,14 @@
                     required
                     minlength="3"
                     placeholder="Choose a username"
+                    aria-required="true"
+                    aria-invalid="{% if form.username.errors %}true{% else %}false{% endif %}"
                     value="{{ form.username.value|default:'' }}"
                 >
                 {% if form.username.errors %}
-                <div class="invalid-feedback">
+                <div class="invalid-feedback"
+                     role="alert"
+                     aria-live="assertive">
                     {{ form.username.errors.0 }}
                 </div>
                 {% endif %}
@@ -57,10 +67,14 @@
                     class="form-control {% if form.email.errors %}is-invalid{% endif %}"
                     required
                     placeholder="your@email.com"
+                    aria-required="true"
+                    aria-invalid="{% if form.email.errors %}true{% else %}false{% endif %}"
                     value="{{ form.email.value|default:'' }}"
                 >
                 {% if form.email.errors %}
-                <div class="invalid-feedback">
+                <div class="invalid-feedback"
+                     role="alert"
+                     aria-live="assertive">
                     {{ form.email.errors.0 }}
                 </div>
                 {% endif %}
@@ -78,14 +92,24 @@
                         required
                         minlength="8"
                         placeholder="Enter password"
+                        aria-required="true"
+                        aria-invalid="{% if form.password1.errors %}true{% else %}false{% endif %}"
                     >
-                    <svg class="password-toggle" onclick="togglePassword('id_password1')" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                    <svg class="password-toggle"
+                         role="button"
+                         tabindex="0"
+                         aria-label="Show or hide password"
+                         onclick="togglePassword('id_password1')"
+                         onkeypress="if(event.key === 'Enter'){ togglePassword('id_password1') }"
+                         viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
                         <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/>
                         <circle cx="12" cy="12" r="3"/>
                     </svg>
                 </div>
                 {% if form.password1.errors %}
-                <div class="invalid-feedback d-block">
+                <div class="invalid-feedback d-block"
+                     role="alert"
+                     aria-live="assertive">
                     {{ form.password1.errors.0 }}
                 </div>
                 {% endif %}
@@ -103,23 +127,41 @@
                         required
                         minlength="8"
                         placeholder="Repeat password"
+                        aria-required="true"
+                        aria-invalid="{% if form.password2.errors %}true{% else %}false{% endif %}"
                     >
-                    <svg class="password-toggle" onclick="togglePassword('id_password2')" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                    <svg class="password-toggle"
+                         role="button"
+                         tabindex="0"
+                         aria-label="Show or hide password confirmation"
+                         onclick="togglePassword('id_password2')"
+                         onkeypress="if(event.key === 'Enter'){ togglePassword('id_password2') }"
+                         viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
                         <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/>
                         <circle cx="12" cy="12" r="3"/>
                     </svg>
                 </div>
                 {% if form.password2.errors %}
-                <div class="invalid-feedback d-block">
+                <div class="invalid-feedback d-block"
+                     role="alert"
+                     aria-live="assertive">
                     {{ form.password2.errors.0 }}
                 </div>
                 {% endif %}
             </div>
 
-            <button type="submit" class="btn btn-outline w-100">Sign Up</button>
+            <!-- Submit signup form -->
+            <button type="submit"
+                    class="btn btn-outline w-100"
+                    aria-label="Create your new QuickFlicks account">
+                Sign Up
+            </button>
 
             <p class="auth-alt-text mt-2">
-                Already have an account? <a href="{% url 'login' %}">Log in</a>
+                Already have an account?
+                <a href="{% url 'login' %}" aria-label="Go to login page">
+                    Log in
+                </a>
             </p>
         </form>
     </div>

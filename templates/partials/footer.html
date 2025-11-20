@@ -1,4 +1,18 @@
-<footer class="footer mt-auto py-3 text-center">
-    <p class="footer-tagline mb-1">Lights. Camera. Discover.</p>
-    <p><a href="{% url 'about' %}">About QuickFlicks</a></p>
+<footer class="footer mt-auto py-3 text-center"
+        role="contentinfo"
+        aria-label="QuickFlicks site footer">
+
+    <!-- Short tagline for brand identity -->
+    <p class="footer-tagline mb-1"
+       aria-label="Website slogan: Lights, Camera, Discover">
+        Lights. Camera. Discover.
+    </p>
+
+    <!-- About page link -->
+    <p>
+        <a href="{% url 'about' %}"
+           aria-label="Learn more about the QuickFlicks project">
+            About QuickFlicks
+        </a>
+    </p>
 </footer>

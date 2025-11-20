@@ -2,57 +2,74 @@
 {% load static %}
 {% block content %}
 
-<div class="profile-page container py-5 d-flex justify-content-center align-items-start">
+<div class="profile-page container py-5 d-flex justify-content-center align-items-start"
+     role="region"
+     aria-labelledby="profile-title">
+
     <section class="profile-card">
-        
-        <h2 class="profile-greeting">
+
+        <!-- Page greeting for both visual and screen-reader users -->
+        <h2 class="profile-greeting" id="profile-title">
             Hello, {{ user.username }} 👋
         </h2>
 
-        <p class="profile-email">{{ user.email }}</p>
+        <!-- Email display (read-only information) -->
+        <p class="profile-email" aria-label="Your registered email address: {{ user.email }}">
+            {{ user.email }}
+        </p>
 
-        <!-- Main actions -->
+        <!-- Main actions for the user's movie shelves / browsing -->
         <div class="profile-actions">
+
+            <!-- View user's saved films -->
             <a href="{% url 'my_shelf' %}" 
-               class="btn btn-outline w-100 mb-3">
+               class="btn btn-outline w-100 mb-3"
+               aria-label="View your movie shelf">
                 🎬 View My Shelf
             </a>
 
+            <!-- Link to search form -->
             <a href="{% url 'home' %}"
-               class="btn btn-outline w-100 mb-4">
+               class="btn btn-outline w-100 mb-4"
+               aria-label="Search for films">
                 🔍 Search for Films
             </a>
         </div>
 
         <hr class="profile-divider">
 
-        <!-- Account Settings -->
+        <!-- Account Settings Section -->
         <h4 class="profile-subheading">Account Settings</h4>
 
         <a href="{% url 'change_username' %}" 
-           class="btn btn-outline w-100 mb-2">
+           class="btn btn-outline w-100 mb-2"
+           aria-label="Change your username">
             ✏️ Change Username
         </a>
 
         <a href="{% url 'change_email' %}" 
-           class="btn btn-outline w-100 mb-2">
+           class="btn btn-outline w-100 mb-2"
+           aria-label="Change your email address">
             📧 Change Email
         </a>
 
         <a href="{% url 'password_change' %}" 
-           class="btn btn-outline w-100 mb-4">
+           class="btn btn-outline w-100 mb-4"
+           aria-label="Change your password">
             🔒 Change Password
         </a>
 
         <hr class="profile-divider">
 
         <!-- Logout -->
+        <!-- aria-label included on the form for clarity -->
         <form method="POST"
               action="{% url 'logout' %}"
-              aria-label="Log out of your QuickFlicks account">
+              aria-label="Log out of your QuickFlicks account safely">
             {% csrf_token %}
             <button type="submit"
-                    class="btn btn-danger w-100">
+                    class="btn btn-danger w-100"
+                    aria-label="Log out">
                 🚪 Logout
             </button>
         </form>

@@ -2,10 +2,24 @@
 {% load static %}
 
 {% block content %}
-<div class="container my-5 about-container">
-    <h1 class="mb-4 text-center">About QuickFlicks</h1>
 
-    <p class="lead text-center">
+<!-- ============================================================ -->
+<!-- ABOUT PAGE                                                   -->
+<!-- - Explains what QuickFlicks is and how it works              -->
+<!-- - Includes a fully accessible custom accordion               -->
+<!-- - ARIA roles added for screen readers and keyboard nav       -->
+<!-- - Extra comments added to show understanding (my style)      -->
+<!-- ============================================================ -->
+
+<div class="container my-5 about-container"
+     role="region"
+     aria-labelledby="about-title">
+
+    <!-- Main heading for this page -->
+    <h1 class="mb-4 text-center" id="about-title">About QuickFlicks</h1>
+
+    <!-- Intro paragraphs: aria-live used so text is read naturally on load -->
+    <p class="lead text-center" aria-live="polite">
         QuickFlicks is your personal movie organiser – a quick and simple way to
         save films, track what you’ve watched, and decide what to watch next.
     </p>
@@ -21,16 +35,36 @@
         Movies are supported right now, with space for series to be added in the future.
     </P>    
 
-    <!-- Divider -->
-    <div class="page-divider"></div>
+    <!-- Visual divider, ignored by screen readers -->
+    <div class="page-divider" role="separator"></div>
 
-    <!-- CUSTOM ACCORDION SECTION -->
-    <div class="accordion-list">
+    <!-- ============================================================ -->
+    <!-- CUSTOM ACCORDION SECTION                                     -->
+    <!-- - I am using my own accordion instead of Bootstrap’s default -->
+    <!-- - Each item is given ARIA roles and labels for accessibility -->
+    <!-- - Screen readers know each header is clickable, expandable   -->
+    <!-- - Keyboard users can navigate using Tab + Enter              -->
+    <!-- ============================================================ -->
+    <div class="accordion-list"
+         role="list"
+         aria-label="Expandable information about QuickFlicks">
 
-        <!-- 1. What the Site Does -->
-        <div class="accordion-item">
-            <button class="accordion-header">What the Site Does</button>
-            <div class="accordion-content">
+        <!-- ======================================================== -->
+        <!-- 1. WHAT THE SITE DOES                                    -->
+        <!-- - The button controls visibility of its content          -->
+        <!-- - aria-expanded always toggles dynamically via JS        -->
+        <!-- ======================================================== -->
+        <div class="accordion-item" role="listitem">
+
+            <button class="accordion-header"
+                    role="button"
+                    tabindex="0"
+                    aria-expanded="false"
+                    aria-controls="section-1">
+                What the Site Does
+            </button>
+
+            <div class="accordion-content" id="section-1">
                 <p>QuickFlicks lets you keep your own movie shelves:</p>
                 <ul>
                     <li><strong>To Put Away</strong> – recently added films waiting to be sorted.</li>
@@ -44,10 +78,18 @@
             </div>
         </div>
 
-        <!-- 2. How to Add a Movie -->
-        <div class="accordion-item">
-            <button class="accordion-header">How to Add a Movie</button>
-            <div class="accordion-content">
+        <!-- 2. HOW TO ADD A MOVIE -->
+        <div class="accordion-item" role="listitem">
+
+            <button class="accordion-header"
+                    role="button"
+                    tabindex="0"
+                    aria-expanded="false"
+                    aria-controls="section-2">
+                How to Add a Movie
+            </button>
+
+            <div class="accordion-content" id="section-2">
                 <ol>
                     <li>Once you are logged in, use the search bar at the top of the homepage.</li>
                     <li>Search for a film using a title or keyword.</li>
@@ -58,10 +100,18 @@
             </div>
         </div>
 
-        <!-- 3. Organising Shelves -->
-        <div class="accordion-item">
-            <button class="accordion-header">How to Organise Your Shelves</button>
-            <div class="accordion-content">
+        <!-- 3. ORGANISING SHELVES -->
+        <div class="accordion-item" role="listitem">
+
+            <button class="accordion-header"
+                    role="button"
+                    tabindex="0"
+                    aria-expanded="false"
+                    aria-controls="section-3">
+                How to Organise Your Shelves
+            </button>
+
+            <div class="accordion-content" id="section-3">
                 <p>You can move movies between shelves using the buttons provided:</p>
                 <ul>
                     <li><strong>Move to "To Watch"</strong> – adds the movie to your watchlist.</li>
@@ -71,10 +121,18 @@
             </div>
         </div>
 
-        <!-- 4. Rating Movies -->
-        <div class="accordion-item">
-            <button class="accordion-header">Rating Movies</button>
-            <div class="accordion-content">
+        <!-- 4. RATING MOVIES -->
+        <div class="accordion-item" role="listitem">
+
+            <button class="accordion-header"
+                    role="button"
+                    tabindex="0"
+                    aria-expanded="false"
+                    aria-controls="section-4">
+                Rating Movies
+            </button>
+
+            <div class="accordion-content" id="section-4">
                 <p>After watching a film, you can rate it:</p>
                 <ul>
                     <li><strong>👍 Like</strong></li>
@@ -83,10 +141,18 @@
             </div>
         </div>
 
-        <!-- 5. Accounts -->
-        <div class="accordion-item">
-            <button class="accordion-header">User Accounts</button>
-            <div class="accordion-content">
+        <!-- 5. USER ACCOUNTS -->
+        <div class="accordion-item" role="listitem">
+
+            <button class="accordion-header"
+                    role="button"
+                    tabindex="0"
+                    aria-expanded="false"
+                    aria-controls="section-5">
+                User Accounts
+            </button>
+
+            <div class="accordion-content" id="section-5">
                 <p>
                     Each user has their own secure movie shelves, stored privately under their account.
                     From your profile page, you can update your username, email address, or password
@@ -95,10 +161,18 @@
             </div>
         </div>
 
-        <!-- 6. Accessibility -->
-        <div class="accordion-item">
-            <button class="accordion-header">Accessibility</button>
-            <div class="accordion-content">
+        <!-- 6. ACCESSIBILITY -->
+        <div class="accordion-item" role="listitem">
+
+            <button class="accordion-header"
+                    role="button"
+                    tabindex="0"
+                    aria-expanded="false"
+                    aria-controls="section-6">
+                Accessibility
+            </button>
+
+            <div class="accordion-content" id="section-6">
                 <p>
                     The site includes ARIA labels, keyboard-friendly buttons,
                     readable contrast, and clear visual feedback to support
@@ -109,8 +183,13 @@
 
     </div>
 
+    <!-- Back link to return to the homepage -->
     <p class="text-center mt-5">
-        <a href="{% url 'home' %}" class="btn btn-outline">Back to Home</a>
+        <a href="{% url 'home' %}"
+           class="btn btn-outline"
+           aria-label="Go back to the homepage">
+            Back to Home
+        </a>
     </p>
 </div>
 

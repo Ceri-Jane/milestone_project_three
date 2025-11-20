@@ -7,14 +7,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!--Meta tags for search engines-->
+    <!-- Meta tags for search engines -->
+    <!-- Explains clearly what the site is for – helps SEO + screen readers -->
     <meta name="description" content="QuickFlicks lets you search for movies, view ratings, and save favourites to your personal shelf. Track what you’ve watched and what you plan to watch — all in one place.">
     <meta name="keywords" content="movies, film tracker, watchlist, movie ratings, movie search, quickflicks, tmdb">
     
     <!-- Title -->
     <title>QuickFlicks</title>
 
-    <!-- Faviicons -->
+    <!-- Favicons for multiple device types -->
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-touch-icon.png' %}">
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
@@ -22,36 +23,57 @@
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     
-    <!-- Custom CSS -->
-    <!-- Main Styles -->
+    <!-- ============================================================ -->
+    <!-- Custom CSS                                                   -->
+    <!-- I split my CSS into logical sections to keep things clean.   -->
+    <!-- Each file handles one domain (auth, shelves, profile, etc).  -->
+    <!-- ============================================================ -->
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
-    <!-- Auth Form Styles -->
     <link rel="stylesheet" href="{% static 'css/auth.css' %}">
-    <!-- Profile Styles -->
     <link rel="stylesheet" href="{% static 'css/profile.css' %}">
-    <!-- Shelf Styles -->
     <link rel="stylesheet" href="{% static 'css/shelf.css' %}">
 
 </head>
 
 <body>
 
+    <!-- ============================================================ -->
+    <!-- GLOBAL NAVBAR                                                -->
+    <!-- Included as a partial so it stays clean across all pages.    -->
+    <!-- Nav already contains ARIA roles and labels.                  -->
+    <!-- ============================================================ -->
     {% include "partials/navbar.html" %}
 
-    <main class="container mt-4">
+    <!-- ============================================================ -->
+    <!-- MAIN CONTENT AREA                                            -->
+    <!-- role="main" helps screen readers jump directly to content.   -->
+    <!-- container class provides consistent spacing.                 -->
+    <!-- ============================================================ -->
+    <main class="container mt-4"
+          role="main"
+          aria-label="Main content area containing page-specific information">
+
         {% block content %}
         {% endblock %}
+
     </main>
 
+    <!-- ============================================================ -->
+    <!-- GLOBAL FOOTER                                                -->
+    <!-- Included for consistency and easier updates.                 -->
+    <!-- ============================================================ -->
     {% include "partials/footer.html" %}
 
-    <!-- Bootstrap JS -->
+    <!-- Bootstrap JS bundle (tooltips, dropdowns etc) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Custom JS -->
-    <!-- Auth JS (password eye toggle etc) -->
+    <!-- ============================================================ -->
+    <!-- Custom JavaScript                                            -->
+    <!-- auth.js → password toggle icons, form UX                     -->
+    <!-- shelf.js → accordion behaviour, horizontal scrolling, etc   -->
+    <!-- 'defer' ensures these don't block rendering                  -->
+    <!-- ============================================================ -->
     <script src="{% static 'js/auth.js' %}"></script>
-    <!-- Shelf JS -->
     <script defer src="{% static 'js/shelf.js' %}"></script>
 
 </body>

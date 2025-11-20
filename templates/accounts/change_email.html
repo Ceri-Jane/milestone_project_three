@@ -3,14 +3,15 @@
 
 {% block content %}
 
-<div class="auth-wrapper">
+<div class="auth-wrapper" role="region" aria-labelledby="change-email-title">
     <div class="auth-card">
 
-        <h2 class="auth-title">Change Email 📧</h2>
+        <!-- Page title used for screen-readers + visual users -->
+        <h2 class="auth-title" id="change-email-title">Change Email 📧</h2>
 
         <!-- Display form errors (if any) -->
         {% if form.errors %}
-            <div class="form-errors">
+            <div class="form-errors" role="alert" aria-live="assertive">
                 {% for field in form %}
                     {% for error in field.errors %}
                         <p class="error-text">{{ error }}</p>
@@ -19,7 +20,8 @@
             </div>
         {% endif %}
 
-        <form method="POST">
+        <!-- Form to update the user's email address -->
+        <form method="POST" aria-label="Change email form">
             {% csrf_token %}
 
             <div class="form-group mb-3">
@@ -29,11 +31,19 @@
                 {{ form.email }}
             </div>
 
-            <button class="btn-outline w-100" type="submit">Save New Email</button>
+            <!-- Submission button for visually impaired users -->
+            <button class="btn-outline w-100"
+                    type="submit"
+                    aria-label="Save new email address">
+                Save New Email
+            </button>
         </form>
 
+        <!-- Simple navigation back to profile -->
         <p class="auth-alt-text mt-3">
-            <a href="{% url 'profile' %}">← Back to Profile</a>
+            <a href="{% url 'profile' %}" aria-label="Back to profile page">
+                ← Back to Profile
+            </a>
         </p>
 
     </div>

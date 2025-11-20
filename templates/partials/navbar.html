@@ -1,8 +1,13 @@
-<nav class="navbar navbar-expand nav-color" role="navigation" aria-label="Main navigation">
+<nav class="navbar navbar-expand nav-color"
+     role="navigation"
+     aria-label="Main navigation">
+
     <div class="container d-flex justify-content-between align-items-center">
 
-        <!-- Logo -->
-        <a class="navbar-brand" href="{% url 'home' %}" aria-label="QuickFlicks Home">
+        <!-- Logo / Home link -->
+        <a class="navbar-brand"
+           href="{% url 'home' %}"
+           aria-label="Go to QuickFlicks home page">
             QuickFlicks
         </a>
 
@@ -11,6 +16,7 @@
             {% if user.is_authenticated %}
 
             <!-- Profile Dropdown -->
+            <!-- Using aria-expanded + aria-haspopup for full screen-reader clarity -->
             <div class="dropdown">
                 <button class="btn btn-outline dropdown-toggle"
                         type="button"
@@ -18,57 +24,78 @@
                         data-bs-toggle="dropdown"
                         aria-expanded="false"
                         aria-haspopup="true"
-                        aria-label="Profile options menu">
+                        aria-label="Open profile options menu">
                     My Profile
                 </button>
 
                 <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end"
-                    aria-labelledby="profileDropdown">
+                    aria-labelledby="profileDropdown"
+                    role="menu">
 
                     <!-- View Profile -->
-                    <li>
-                        <a class="dropdown-item" href="{% url 'profile' %}">
+                    <li role="none">
+                        <a class="dropdown-item"
+                           href="{% url 'profile' %}"
+                           role="menuitem"
+                           aria-label="View your profile page">
                             👤 View Profile
                         </a>
                     </li>
 
                     <!-- My Shelf -->
-                    <li>
-                        <a class="dropdown-item" href="{% url 'my_shelf' %}">
+                    <li role="none">
+                        <a class="dropdown-item"
+                           href="{% url 'my_shelf' %}"
+                           role="menuitem"
+                           aria-label="View your saved movies">
                             🎬 My Shelf
                         </a>
                     </li>
 
-                    <li><hr class="dropdown-divider"></li>
+                    <li><hr class="dropdown-divider" role="none"></li>
 
                     <!-- Change Username -->
-                    <li>
-                        <a class="dropdown-item" href="{% url 'change_username' %}">
+                    <li role="none">
+                        <a class="dropdown-item"
+                           href="{% url 'change_username' %}"
+                           role="menuitem"
+                           aria-label="Change your username">
                             ✏️ Change Username
                         </a>
                     </li>
 
                     <!-- Change Email -->
-                    <li>
-                        <a class="dropdown-item" href="{% url 'change_email' %}">
+                    <li role="none">
+                        <a class="dropdown-item"
+                           href="{% url 'change_email' %}"
+                           role="menuitem"
+                           aria-label="Change your email address">
                             📧 Change Email
                         </a>
                     </li>
 
                     <!-- Change Password -->
-                    <li>
-                        <a class="dropdown-item" href="{% url 'password_change' %}">
+                    <li role="none">
+                        <a class="dropdown-item"
+                           href="{% url 'password_change' %}"
+                           role="menuitem"
+                           aria-label="Change your account password">
                             🔐 Change Password
                         </a>
                     </li>
 
-                    <li><hr class="dropdown-divider"></li>
+                    <li><hr class="dropdown-divider" role="none"></li>
 
                     <!-- Logout Button -->
-                    <li>
-                        <form method="post" action="{% url 'logout' %}" class="px-3 py-2">
+                    <li role="none">
+                        <form method="post"
+                              action="{% url 'logout' %}"
+                              class="px-3 py-2"
+                              aria-label="Log out of your QuickFlicks account">
                             {% csrf_token %}
-                            <button type="submit" class="btn btn-danger w-100 d-flex align-items-center justify-content-center gap-2">
+                            <button type="submit"
+                                    class="btn btn-danger w-100 d-flex align-items-center justify-content-center gap-2"
+                                    aria-label="Log out">
                                 <span aria-hidden="true">🚪</span>
                                 Logout
                             </button>
@@ -90,7 +117,7 @@
             <!-- Sign Up -->
             <a class="btn btn-outline"
                href="{% url 'signup' %}"
-               aria-label="Create a QuickFlicks account">
+               aria-label="Create a new QuickFlicks account">
                 Sign Up
             </a>
 

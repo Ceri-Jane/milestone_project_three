@@ -11,10 +11,11 @@
 {#  - Browser validation enabled (no 'novalidate')              #}
 {# ------------------------------------------------------------ #}
 
-<div class="auth-wrapper">
+<div class="auth-wrapper" role="region" aria-labelledby="login-title">
     <div class="auth-card">
 
-        <h2 class="auth-title">Welcome Back 🎬</h2>
+        <!-- Title used by both visual users and screen readers -->
+        <h2 class="auth-title" id="login-title">Welcome Back 🎬</h2>
 
         {# ------------------------------------------------------------ #}
         {# GLOBAL FORM ERRORS                                           #}
@@ -22,12 +23,15 @@
         {# Django stores these in form.non_field_errors, not messages.  #}
         {# ------------------------------------------------------------ #}
         {% if form.non_field_errors %}
-        <div class="alert alert-danger">
+        <div class="alert alert-danger"
+             role="alert"
+             aria-live="assertive">
             {{ form.non_field_errors }}
         </div>
         {% endif %}
 
-        <form method="POST">
+        <!-- Login form wrapper with ARIA label for screen readers -->
+        <form method="POST" aria-label="Login form">
             {% csrf_token %}
 
             {# ------------------------------------------------------------ #}
@@ -47,11 +51,15 @@
                     class="form-control {% if form.identifier.errors %}is-invalid{% endif %}"
                     placeholder="Enter username or email"
                     required
+                    aria-required="true"
+                    aria-invalid="{% if form.identifier.errors %}true{% else %}false{% endif %}"
                     value="{{ form.identifier.value|default:'' }}"
                 >
 
                 {% if form.identifier.errors %}
-                <div class="invalid-feedback">
+                <div class="invalid-feedback"
+                     role="alert"
+                     aria-live="assertive">
                     {{ form.identifier.errors.0 }}
                 </div>
                 {% endif %}
@@ -72,9 +80,17 @@
                         class="form-control {% if form.password.errors %}is-invalid{% endif %}"
                         placeholder="Enter your password"
                         required
+                        aria-required="true"
+                        aria-invalid="{% if form.password.errors %}true{% else %}false{% endif %}"
                     >
+
+                    <!-- Eye icon toggle made keyboard-accessible & screen-reader friendly -->
                     <svg class="password-toggle"
+                         role="button"
+                         tabindex="0"
+                         aria-label="Toggle password visibility"
                          onclick="togglePassword('id_password')"
+                         onkeypress="if(event.key === 'Enter'){ togglePassword('id_password') }"
                          viewBox="0 0 24 24"
                          fill="none"
                          stroke="white"
@@ -85,25 +101,37 @@
                 </div>
 
                 {% if form.password.errors %}
-                <div class="invalid-feedback d-block">
+                <div class="invalid-feedback d-block"
+                     role="alert"
+                     aria-live="assertive">
                     {{ form.password.errors.0 }}
                 </div>
                 {% endif %}
             </div>
 
             {# Submit Button #}
-            <button type="submit" class="btn btn-outline w-100 mt-2">Log In</button>
+            <button type="submit"
+                    class="btn btn-outline w-100 mt-2"
+                    aria-label="Log in to your account">
+                Log In
+            </button>
 
             {# Forgot Password Link #}
             <div class="text-center mt-2">
-                <a href="{% url 'password_reset' %}" class="forgot-link">
+                <a href="{% url 'password_reset' %}"
+                   class="forgot-link"
+                   aria-label="Reset your password">
                     Forgot password?
                 </a>
             </div>
 
             {# Redirect to Signup #}
             <p class="auth-alt-text mt-3">
-                Don’t have an account? <a href="{% url 'signup' %}">Sign up</a>
+                Don’t have an account?
+                <a href="{% url 'signup' %}"
+                   aria-label="Sign up for a new account">
+                    Sign up
+                </a>
             </p>
 
         </form>

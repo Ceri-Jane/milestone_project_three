@@ -2,14 +2,16 @@
 {% load static %}
 {% block content %}
 
-<div class="auth-wrapper">
+<div class="auth-wrapper" role="region" aria-labelledby="change-username-title">
     <div class="auth-card">
 
-        <h2 class="auth-title">Change Username ✏️</h2>
+        <!-- Page title used for both visual users and screen readers -->
+        <h2 class="auth-title" id="change-username-title">Change Username ✏️</h2>
 
         <!-- Show form validation errors -->
         {% if form.errors %}
-            <div class="form-errors">
+            <!-- Error container announced immediately to assistive tech -->
+            <div class="form-errors" role="alert" aria-live="assertive">
                 {% for field in form %}
                     {% for error in field.errors %}
                         <p class="error-text">{{ error }}</p>
@@ -18,7 +20,8 @@
             </div>
         {% endif %}
 
-        <form method="POST">
+        <!-- Form for updating the user's username -->
+        <form method="POST" aria-label="Change username form">
             {% csrf_token %}
 
             <div class="form-group mb-3">
@@ -28,13 +31,17 @@
                 {{ form.username }}
             </div>
 
-            <button class="btn-outline w-100" type="submit">
+            <!-- Submit new username button -->
+            <button class="btn-outline w-100"
+                    type="submit"
+                    aria-label="Save new username">
                 Save New Username
             </button>
         </form>
 
+        <!-- Navigation back to profile -->
         <p class="auth-alt-text mt-3">
-            <a href="{% url 'profile' %}">← Back to Profile</a>
+            <a href="{% url 'profile' %}" aria-label="Back to profile page">← Back to Profile</a>
         </p>
 
     </div>

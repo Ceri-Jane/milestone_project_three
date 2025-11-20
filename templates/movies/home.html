@@ -4,98 +4,133 @@
 {% block content %}
 
 <!-- HERO SECTION -->
-<div class="hero-box">
+<div class="hero-box" role="region" aria-labelledby="hero-title">
 
     <!-- Logo -->
     <img src="{% static 'images/logo.png' %}" 
-         alt="QuickFlicks Logo" 
+         alt="QuickFlicks Logo"
+         aria-label="QuickFlicks application logo"
          class="hero-logo">
 
     <!-- Subtitle -->
-    <p class="hero-subtitle">
+    <p class="hero-subtitle" id="hero-title" aria-live="polite">
         Explore thousands of movies with their details and ratings.<br>
         Sign up / Login to create your own shelves – keeping track of what you plan to watch and what you've already enjoyed.
     </p>
 
     {% if not user.is_authenticated %}
-    <div class="hero-auth">
-        <a href="{% url 'login' %}" class="btn-outline">Login</a>
-        <a href="{% url 'signup' %}" class="btn-outline">Sign Up</a>
+    <div class="hero-auth" role="group" aria-label="Authentication actions">
+        <a href="{% url 'login' %}" 
+           class="btn-outline"
+           aria-label="Log into your QuickFlicks account">
+            Login
+        </a>
+        <a href="{% url 'signup' %}" 
+           class="btn-outline"
+           aria-label="Create a new QuickFlicks account">
+            Sign Up
+        </a>
     </div>
     {% endif %}
 </div>
 
 <!-- SEARCH BAR -->
-<form method="GET" action="{% url 'home' %}" class="search-form">
+<form method="GET" 
+      action="{% url 'home' %}" 
+      class="search-form"
+      role="search"
+      aria-label="Search for movies">
+    
     <input 
         type="text" 
         name="query" 
         placeholder="Search for a movie..."
+        aria-label="Enter a movie title to search"
         value="{{ query }}">
-    <button type="submit">Search</button>
+
+    <button type="submit" aria-label="Search for movies">Search</button>
 </form>
 
 <!-- Divider -->
-<div class="page-divider"></div>
+<div class="page-divider" role="separator"></div>
 
 {% if movies %}
     <!-- Results heading -->
-    <h2 class="results-heading">Results</h2>
+    <h2 class="results-heading" aria-live="polite">Results</h2>
 
-    <div class="results-grid">
+    <div class="results-grid" role="list">
 
         {% for movie in movies %}
-        <div class="movie-card">
+        <div class="movie-card" role="listitem">
 
             <!-- Poster -->
             <div class="poster-area">
                 <img 
                     src="https://image.tmdb.org/t/p/w300{{ movie.poster_path|default:'' }}"
                     onerror="this.src='{% static 'images/movie-poster-unavailable.jpg' %}'"
-                    alt="{{ movie.title }}">
+                    alt="{{ movie.title }} movie poster"
+                    aria-label="Poster for {{ movie.title }}">
             </div>
 
             <!-- Title -->
-            <div class="movie-title">{{ movie.title }}</div>
+            <div class="movie-title" aria-label="Movie title: {{ movie.title }}">
+                {{ movie.title }}
+            </div>
 
             <!-- Rating + Release -->
             <div class="movie-meta">
                 {% if movie.vote_average %}
-                    <div class="movie-rating">⭐ {{ movie.vote_average }}/10</div>
+                    <div class="movie-rating"
+                         aria-label="Movie rating: {{ movie.vote_average }} out of 10">
+                        ⭐ {{ movie.vote_average }}/10
+                    </div>
                 {% else %}
                     <div class="movie-rating" style="visibility:hidden;">⭐</div>
                 {% endif %}
-                <div class="movie-date">{{ movie.release_date|default:"Unknown" }}</div>
+
+                <div class="movie-date"
+                     aria-label="Release date: {{ movie.release_date|default:'Unknown' }}">
+                    {{ movie.release_date|default:"Unknown" }}
+                </div>
             </div>
 
             <!-- Overview -->
-            <div class="movie-desc">
+            <div class="movie-desc"
+                 aria-label="Movie description">
                 {{ movie.overview|default:"No description available." }}
             </div>
 
             <!-- ACTIONS -->
-            <div class="card-actions">
+            <div class="card-actions" aria-label="Movie actions">
 
                 {% if user.is_authenticated %}
 
                     {% if movie.id|stringformat:"s" in user_movie_ids %}
                         <!-- Already saved -->
-                        <p class="in-shelf">✅ Already in Your Shelf</p>
+                        <p class="in-shelf"
+                           aria-label="This movie is already in your shelf">
+                            ✅ Already in Your Shelf
+                        </p>
 
                     {% else %}
                         <!-- Add Button -->
-                        <form method="POST" action="{% url 'add_to_shelf' %}">
+                        <form method="POST" action="{% url 'add_to_shelf' %}"
+                              aria-label="Add {{ movie.title }} to your shelf">
                             {% csrf_token %}
                             <input type="hidden" name="tmdb_id" value="{{ movie.id }}">
                             <input type="hidden" name="title" value="{{ movie.title }}">
                             <input type="hidden" name="poster_path" value="{{ movie.poster_path }}">
-                            <button class="btn-outline">➕ Add to My Shelf</button>
+                            <button class="btn-outline"
+                                    aria-label="Add {{ movie.title }} to your shelf">
+                                ➕ Add to My Shelf
+                            </button>
                         </form>
                     {% endif %}
 
                 {% else %}
                     <!-- Must login -->
-                    <p class="login-msg">
+                    <p class="login-msg"
+                       aria-label="You need to log in to add movies to your shelf">
                         <a href="{% url 'login' %}">Log in</a> to add to your shelf.
                     </p>
                 {% endif %}
@@ -108,7 +143,11 @@
     </div>
 
 {% elif query %}
-    <p class="no-results">No results found.</p>
+    <p class="no-results"
+       aria-live="assertive"
+       aria-label="No movies found for your search term">
+        No results found.
+    </p>
 {% endif %}
 
 {% endblock %}
