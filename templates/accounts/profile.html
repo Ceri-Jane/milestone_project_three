@@ -9,9 +9,9 @@
     <section class="profile-card">
 
         <!-- Page greeting for both visual and screen-reader users -->
-        <h2 class="profile-greeting" id="profile-title">
+        <h1 class="profile-greeting" id="profile-title">
             Hello, {{ user.username }} 👋
-        </h2>
+        </h1>
 
         <!-- Email display (read-only information) -->
         <p class="profile-email" aria-label="Your registered email address: {{ user.email }}">
@@ -36,10 +36,11 @@
             </a>
         </div>
 
-        <hr class="profile-divider">
+        <!-- Divider -->
+        <div class="page-divider" role="separator"></div>
 
         <!-- Account Settings Section -->
-        <h4 class="profile-subheading">Account Settings</h4>
+        <h2 class="profile-subheading">Account Settings</h2>
 
         <a href="{% url 'change_username' %}" 
            class="btn btn-outline w-100 mb-2"
@@ -59,7 +60,8 @@
             🔒 Change Password
         </a>
 
-        <hr class="profile-divider">
+        <!-- Divider -->
+        <div class="page-divider" role="separator"></div>
 
         <!-- Logout -->
         <!-- aria-label included on the form for clarity -->
