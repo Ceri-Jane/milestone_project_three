@@ -1,5 +1,20 @@
 {% extends "base.html" %}
 {% load static %}
+
+{# Page-specific SEO overrides: custom title + meta tags #}
+
+{% block title %}
+<title>QuickFlicks | Change Username</title>
+{% endblock %}
+
+{% block meta_description %}
+<meta name="description" content="Update your QuickFlicks username in your account settings. Keep your profile information up to date.">
+{% endblock %}
+
+{% block meta_keywords %}
+<meta name="keywords" content="change username, account settings, quickflicks profile, update username">
+{% endblock %}
+
 {% block content %}
 
 <div class="auth-wrapper" role="region" aria-labelledby="change-username-title">

@@ -1,6 +1,20 @@
 {% extends "base.html" %}
 {% load static %}
 
+{# Page-specific SEO: custom title + meta tags #}
+
+{% block title %}
+<title>QuickFlicks | My Shelf</title>
+{% endblock %}
+
+{% block meta_description %}
+<meta name="description" content="View and manage your personal QuickFlicks shelves: To Put Away, To Watch, and Watched. Move, rate, and organise all your saved movies.">
+{% endblock %}
+
+{% block meta_keywords %}
+<meta name="keywords" content="my shelf, movie shelves, to watch list, watched movies, organise films, quickflicks shelf">
+{% endblock %}
+
 {% block content %}
 
 <!-- Back to Home/Search link -->

@@ -1,6 +1,20 @@
 {% extends "base.html" %}
 {% load static %}
 
+{# Page-specific SEO: custom title + meta tags #}
+
+{% block title %}
+<title>QuickFlicks | About</title>
+{% endblock %}
+
+{% block meta_description %}
+<meta name="description" content="Learn what QuickFlicks is, how it works, and how it helps you organise, track, and rate the movies you watch.">
+{% endblock %}
+
+{% block meta_keywords %}
+<meta name="keywords" content="about quickflicks, movie organiser, watchlist info, quickflicks features, how quickflicks works">
+{% endblock %}
+
 {% block content %}
 
 <!-- ============================================================ -->

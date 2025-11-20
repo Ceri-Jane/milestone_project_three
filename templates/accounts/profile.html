@@ -1,5 +1,21 @@
 {% extends "base.html" %}
 {% load static %}
+
+{# Page-specific SEO overrides: custom title + meta tags #}
+
+{% block title %}
+<title>QuickFlicks | My Profile</title>
+{% endblock %}
+
+{% block meta_description %}
+<meta name="description" content="Manage your QuickFlicks account, view your movie shelves, and update your profile settings.">
+{% endblock %}
+
+{% block meta_keywords %}
+<meta name="keywords" content="profile, account settings, movie shelves, quickflicks user">
+{% endblock %}
+
+
 {% block content %}
 
 <div class="profile-page container py-5 d-flex justify-content-center align-items-start"

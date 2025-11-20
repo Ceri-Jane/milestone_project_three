@@ -1,5 +1,20 @@
 {% extends "base.html" %}
 {% load static %}
+
+{# Page-specific SEO overrides: custom title + meta tags #}
+
+{% block title %}
+<title>QuickFlicks | Login</title>
+{% endblock %}
+
+{% block meta_description %}
+<meta name="description" content="Log in to your QuickFlicks account to manage your movie shelves and save films you want to watch.">
+{% endblock %}
+
+{% block meta_keywords %}
+<meta name="keywords" content="quickflicks login, movie tracker login, watchlist login, film shelf login">
+{% endblock %}
+
 {% block content %}
 
 {# ------------------------------------------------------------ #}

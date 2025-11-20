@@ -1,5 +1,20 @@
 {% extends "base.html" %}
 {% load static %}
+
+{# Page-specific SEO overrides: custom title + meta tags #}
+
+{% block title %}
+<title>QuickFlicks | Sign Up</title>
+{% endblock %}
+
+{% block meta_description %}
+<meta name="description" content="Create your QuickFlicks account to save movies, build shelves, and track what you’ve watched.">
+{% endblock %}
+
+{% block meta_keywords %}
+<meta name="keywords" content="signup, create account, movie tracker, quickflicks account">
+{% endblock %}
+
 {% block content %}
 
 {# ------------------------------------------------------------ #}
@@ -20,7 +35,6 @@
         <!-- Page heading used for both visual users and screen readers -->
         <h1 class="auth-title" id="signup-title">Create Your Account 🍿</h1>
 
-        {# Django form-level errors (e.g. password mismatch) #}
         {% if form.non_field_errors %}
         <div class="alert alert-danger"
              role="alert"
@@ -150,7 +164,6 @@
                 {% endif %}
             </div>
 
-            <!-- Submit signup form -->
             <button type="submit"
                     class="btn btn-outline w-100"
                     aria-label="Create your new QuickFlicks account">

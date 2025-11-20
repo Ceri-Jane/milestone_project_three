@@ -1,6 +1,20 @@
 {% extends "base.html" %}
 {% load static %}
 
+{# Page-specific SEO overrides: custom title + meta tags #}
+
+{% block title %}
+<title>QuickFlicks | Home</title>
+{% endblock %}
+
+{% block meta_description %}
+<meta name="description" content="Search for movies, view details and ratings, and add your favourites to personalised shelves on QuickFlicks.">
+{% endblock %}
+
+{% block meta_keywords %}
+<meta name="keywords" content="movie search, film finder, tmdb search, movie results, quickflicks home">
+{% endblock %}
+
 {% block content %}
 
 <!-- HERO SECTION -->

@@ -1,6 +1,20 @@
 {% extends "base.html" %}
 {% load static %}
 
+{# Page-specific SEO overrides: custom title + meta tags #}
+
+{% block title %}
+<title>QuickFlicks | Change Email</title>
+{% endblock %}
+
+{% block meta_description %}
+<meta name="description" content="Update the email address linked to your QuickFlicks account.">
+{% endblock %}
+
+{% block meta_keywords %}
+<meta name="keywords" content="change email, update account details, quickflicks profile settings">
+{% endblock %}
+
 {% block content %}
 
 <div class="auth-wrapper" role="region" aria-labelledby="change-email-title">
