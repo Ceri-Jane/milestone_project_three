@@ -30,6 +30,27 @@ total_movies.short_description = "Movies"
 
 
 class CustomUserAdmin(UserAdmin):
+    """
+    Custom version of Django's UserAdmin.
+    Removes first_name and last_name fields from the admin form.
+    """
+
+    # ---- REMOVE FIRST & LAST NAME FROM FIELDSETS ----
+    fieldsets = (
+        (None, {"fields": ("username", "password")}),
+        ("Personal info", {"fields": ("email",)}),  # first_name/last_name REMOVED
+        ("Permissions", {
+            "fields": (
+                "is_active",
+                "is_staff",
+                "is_superuser",
+                "groups",
+                "user_permissions",
+            ),
+        }),
+        ("Important dates", {"fields": ("last_login", "date_joined")}),
+    )
+
     list_display = (
         "username", "email", "is_active", "is_staff",
         "is_superuser", group_list, total_movies,
@@ -37,6 +58,7 @@ class CustomUserAdmin(UserAdmin):
     list_filter = ("is_staff", "is_superuser", "is_active", "groups")
 
 
+# Unregister default and register custom
 admin.site.unregister(User)
 admin.site.register(User, CustomUserAdmin)
 
