@@ -51,7 +51,7 @@
 
                 <div class="shelf-row">
                     {% for movie in to_put_away %}
-                    <div class="shelf-card" role="listitem" aria-label="Movie card">
+                    <div class="shelf-card" aria-label="Movie card">
                         <img 
                             src="{{ movie.poster_url|default:'' }}" 
                             onerror="this.src='{% static 'images/movie-poster-unavailable.jpg' %}'" 
@@ -121,7 +121,7 @@
 
                 <div class="shelf-row">
                     {% for movie in to_watch %}
-                    <div class="shelf-card" role="listitem">
+                    <div class="shelf-card">
 
                         <img 
                             src="{{ movie.poster_url|default:'' }}" 
@@ -187,7 +187,7 @@
                 <div class="shelf-row watched-row">
 
                     {% for movie in watched %}
-                    <div class="shelf-card watched-card" role="listitem">
+                    <div class="shelf-card watched-card">
 
                         <img 
                             src="{{ movie.poster_url|default:'' }}" 
