@@ -28,7 +28,6 @@
 
     <!-- ========== TO PUT AWAY ========== -->
     <div class="accordion-item open"
-         role="region"
          aria-labelledby="to-put-away-header">
 
         <!-- Accordion Header -->
@@ -41,7 +40,11 @@
             📦 To Put Away
         </button>
 
-        <div class="accordion-content" id="to-put-away-content">
+        <div class="accordion-content"
+             id="to-put-away-content"
+             role="region"
+             aria-labelledby="to-put-away-header">
+
             <div class="shelf-wrapper" role="list" aria-label="Movies to put away">
 
                 <div class="scroll-left" aria-hidden="true"></div>
@@ -95,9 +98,9 @@
 
     <!-- ========== TO WATCH ========== -->
     <div class="accordion-item open"
-         role="region"
          aria-labelledby="to-watch-header">
 
+        <!-- Accordion Header -->
         <button class="accordion-header"
                 id="to-watch-header"
                 role="button"
@@ -107,7 +110,11 @@
             🎬 To Watch
         </button>
 
-        <div class="accordion-content" id="to-watch-content">
+        <div class="accordion-content"
+             id="to-watch-content"
+             role="region"
+             aria-labelledby="to-watch-header">
+
             <div class="shelf-wrapper" role="list" aria-label="Movies to watch">
 
                 <div class="scroll-left" aria-hidden="true"></div>
@@ -156,9 +163,9 @@
 
     <!-- ========== WATCHED ========== -->
     <div class="accordion-item"
-         role="region"
          aria-labelledby="watched-header">
 
+        <!-- Accordion Header -->
         <button class="accordion-header"
                 id="watched-header"
                 role="button"
@@ -168,7 +175,11 @@
             🍿 Watched
         </button>
 
-        <div class="accordion-content" id="watched-content">
+        <div class="accordion-content"
+             id="watched-content"
+             role="region"
+             aria-labelledby="watched-header">
+
             <div class="shelf-wrapper watched-wrapper" role="list" aria-label="Watched movies">
 
                 <div class="scroll-left" aria-hidden="true"></div>
