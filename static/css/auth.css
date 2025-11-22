@@ -61,19 +61,23 @@
 
 .password-row input {
     width: 100%;
-    padding-right: 35px;
+    padding-right: 40px; /* give the bigger icon more space */
 }
 
+/* Improved visibility toggle */
 .password-toggle {
-    width: 22px;
-    height: 22px;
+    width: 26px;         /* bigger, easier to see */
+    height: 26px;
     position: absolute;
     right: 10px;
     cursor: pointer;
-    opacity: 0.75;
+    opacity: 0.85;       /* slightly clearer by default */
+    stroke: var(--primary-color);     /* ensure bright white lines */
+    flex-shrink: 0;      /* prevents the SVG from collapsing */
 }
 
-.password-toggle:hover {
+.password-toggle:hover,
+.password-toggle:focus {
     opacity: 1;
 }
 

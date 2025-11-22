@@ -109,15 +109,15 @@
                         aria-required="true"
                         aria-invalid="{% if form.password1.errors %}true{% else %}false{% endif %}"
                     >
-                    <svg class="password-toggle"
-                         role="button"
-                         tabindex="0"
-                         aria-label="Show or hide password"
-                         onclick="togglePassword('id_password1')"
-                         onkeypress="if(event.key === 'Enter'){ togglePassword('id_password1') }"
-                         viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                        <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/>
-                        <circle cx="12" cy="12" r="3"/>
+                     <svg 
+                     class="password-toggle"
+                     role="button"
+                     tabindex="0"
+                     aria-label="Toggle password visibility"
+                     aria-pressed="false"
+                     viewBox="0 0 24 24">
+                     <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/>
+                     <circle cx="12" cy="12" r="3"/>
                     </svg>
                 </div>
                 {% if form.password1.errors %}
@@ -144,15 +144,15 @@
                         aria-required="true"
                         aria-invalid="{% if form.password2.errors %}true{% else %}false{% endif %}"
                     >
-                    <svg class="password-toggle"
-                         role="button"
-                         tabindex="0"
-                         aria-label="Show or hide password confirmation"
-                         onclick="togglePassword('id_password2')"
-                         onkeypress="if(event.key === 'Enter'){ togglePassword('id_password2') }"
-                         viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-                        <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/>
-                        <circle cx="12" cy="12" r="3"/>
+                     <svg 
+                     class="password-toggle"
+                     role="button"
+                     tabindex="0"
+                     aria-label="Toggle password visibility"
+                     aria-pressed="false"
+                     viewBox="0 0 24 24">
+                     <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/>
+                     <circle cx="12" cy="12" r="3"/>
                     </svg>
                 </div>
                 {% if form.password2.errors %}
