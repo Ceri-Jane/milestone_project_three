@@ -743,7 +743,7 @@ Key improvements I made include:
 - Reviewing all pages for missing alt text, invalid roles, and unnecessary ARIA.
 
 As a result, all user-facing pages now score:
-**98–99% for performache** on desktop, **78–96% for performache** on mobile.
+**98–99% for performance** on desktop, **78–96% for performance** on mobile.
 **95-100% for accessibility** on desktop, **95-100% for accessibility** on mobile.
 **96–100% for best practices** on desktop, **100% for best practices** on mobile.
 **100% for seo** on desktop, **100% for seo** on mobile.
