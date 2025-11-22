@@ -100,18 +100,15 @@
                     >
 
                     <!-- Eye icon toggle made keyboard-accessible & screen-reader friendly -->
-                    <svg class="password-toggle"
-                         role="button"
-                         tabindex="0"
-                         aria-label="Toggle password visibility"
-                         onclick="togglePassword('id_password')"
-                         onkeypress="if(event.key === 'Enter'){ togglePassword('id_password') }"
-                         viewBox="0 0 24 24"
-                         fill="none"
-                         stroke="white"
-                         stroke-width="2">
-                        <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/>
-                        <circle cx="12" cy="12" r="3"/>
+                     <svg 
+                     class="password-toggle"
+                     role="button"
+                     tabindex="0"
+                     aria-label="Toggle password visibility"
+                     aria-pressed="false"
+                     viewBox="0 0 24 24">
+                     <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/>
+                     <circle cx="12" cy="12" r="3"/>
                     </svg>
                 </div>
 
