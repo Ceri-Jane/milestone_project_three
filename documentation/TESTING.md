@@ -34,7 +34,8 @@ Return to [README.md](../README.md)
 3. [Automated Testing](#automated-testing)
     - [Django Automated Test Summary](#django-automated-test-summary)
     - [Django Automated Test Full Details](#django-automated-test-full-details-collapsible)
-4. [Final Deployment Checks](#final-deployment-checks)
+4. [Initial Heroku Deployment Test](#initial-heroku-deployment-test)    
+5. [Final Deployment Checks](#final-deployment-checks)
 
 Return to [README.md](../README.md)
 
@@ -1197,6 +1198,52 @@ The following screenshot confirms all tests executed and passed successfully:
 - ✔ Confirms stability of core logic in QuickFlicks
 
 These automated tests provide confidence that the main user flows work reliably and continue to function correctly even as the project expands.
+
+[Back to contents](#contents)
+
+Return to [README.md](../README.md)
+
+---
+## Initial Heroku Deployment Test
+---
+
+### Initial Heroku Deployment Test
+
+Before building the full QuickFlicks application, an initial deployment test was carried out to confirm that:
+
+- Heroku was configured correctly  
+- The project structure deployed without errors  
+- The WSGI app, routing, and Procfile were working  
+- Static files and environment variables were recognised  
+- The database connection and basic Django setup were valid  
+
+A temporary test route was added to `quickflicks/urls.py`:
+
+```python
+# test home page for Heroku deployment
+def home(request):
+    return HttpResponse("QuickFlicks: Deployment test successful.")
+```
+
+This allowed the first push to Heroku to load a simple text response.
+
+**Result**
+
+- ✔ Deployment succeeded with no errors
+
+- ✔ Heroku correctly rendered the test homepage
+  
+- ✔ Routing and WSGI configuration confirmed working
+
+First successful Heroku deployment output:
+
+![First successful Heroku deployment output](testing-media/images/first-heroku-deployment.png)
+
+Temporary test route in `urls.py`:
+
+![Temporary test route in URLS](testing-media/images/first-heroku-deployment-urls.png)
+
+These screenshots demonstrate that Heroku was correctly set up before full development continued.
 
 [Back to contents](#contents)
 
