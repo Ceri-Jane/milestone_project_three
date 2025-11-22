@@ -5,7 +5,7 @@ Django settings for quickflicks project.
 from pathlib import Path
 import os
 from decouple import config
-import dj_database_url   # <-- NEW
+import dj_database_url
 
 
 # -------------------------------------------------------------
