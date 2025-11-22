@@ -24,10 +24,15 @@
 
 .auth-card {
     background: var(--card-background-colour);
+    color: var(--primary-color);
     border-radius: 12px;
     padding: 35px 40px;
     width: 380px;
     box-shadow: 0px 0px 25px var(--shadow-color);
+}
+
+.auth-card a {
+    color: var(--primary-color);
 }
 
 /* Title */
@@ -38,6 +43,7 @@
 
 /* Form Fields */
 .form-group label {
+    color: var(--primary-color);
     font-size: 14px;
     margin-bottom: 6px;
     display: block;
@@ -47,8 +53,8 @@
     width: 100%;
     padding: 10px 12px;
     border-radius: 6px;
-    border: 1px solid var(--secondary-color);
-    background: var(--primary-color-transparent);
+    border: 1px solid var(--primary-color-transparent);
+    background: var(--body-background-color);
     color: var(--primary-color);
 }
 
