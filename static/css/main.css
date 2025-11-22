@@ -103,6 +103,11 @@ a:hover {
     color: var(--secondary-color);
 }
 
+/* Fix for white text being forced on btn-outline */
+.btn.btn-outline {
+    color: var(--secondary-color) !important; /* black text */
+}
+
 .btn-outline:hover {
     background: var(--hover-color);
     color: var(--secondary-color);
