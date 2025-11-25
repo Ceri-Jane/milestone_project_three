@@ -58,6 +58,12 @@
     color: var(--primary-color);
 }
 
+/* Placeholder Styling */
+.form-group input::placeholder {
+    color: var(--primary-color);
+    opacity: 1;
+}
+
 /* Password + Eye Icon */
 .password-row {
     position: relative;
