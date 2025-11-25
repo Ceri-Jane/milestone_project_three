@@ -102,6 +102,17 @@ All CSS passed validation successfully.
 
 ![CSS Validation](testing-media/images/css-validation.png)
 
+#### Additional UI Fix Applied
+To improve contrast and placeholder readability on the authentication pages, the input placeholder text color was updated to white using the `::placeholder` CSS selector. This ensures clearer visibility against the dark background and resolves a minor accessibility contrast issue.
+
+Before placeholder contrast update:
+
+![CSS Validation](testing-media/images/contrast-auth.png)
+
+After placeholder contrast update:
+
+![CSS Validation](testing-media/images/contrast-auth-fix.png)
+
 
 [Back to contents](#contents)
 
