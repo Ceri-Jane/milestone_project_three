@@ -50,10 +50,16 @@ These accounts contain no personal data and can be safely shared.
 
 #### Superuser Account (Full Django Admin Access)
 ```text
-Username: Test_Superuser  
-Email: testsuperuser@test.com  
-Password: TestPassword123
+For security reasons, the superuser login details are not included in the repository.  
+They have been submitted separately through the Peterborough University Dashboard
+under the “submission comment” section.*
 ```
+
+*<i>The previous version of this TESTING.md file included temporary test credentials 
+for a Django superuser account. These have now been removed, and the password 
+has been changed for security purposes. No real user data or sensitive keys 
+were ever exposed.</i>
+
 
 #### Admin Staff Account (Restricted Admin Permissions - view only)
 ```text
