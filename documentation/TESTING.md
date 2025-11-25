@@ -909,6 +909,16 @@ Overall, every implemented story passed testing successfully, and the project me
 | **14. User Avatar Upload (Could-have)** | Not implemented. User profile uses standard data only. | ➖ Not Included |
 | **15. Pagination for Search Results (Could-have)** | Not implemented. Search results show full API response without pagination. | ➖ Not Included |
 
+During testing, it was noted that the TMDb Search API returns a maximum of
+20 results per page. This is expected behaviour and not a limitation of the
+QuickFlicks site. Because pagination was a "could-have" feature for this
+milestone, only the first page of results is displayed.
+
+Broader or single-letter searches (e.g., "a") may not show all possible
+matching films. Users are encouraged to enter more specific search terms
+for the most accurate results. Pagination may be added in future versions.
+
+
 [Back to contents](#contents)
 
 Return to [README.md](../README.md)
