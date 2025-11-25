@@ -32,11 +32,19 @@
         class="hero-logo">
     </picture>
     
-        <!-- Subtitle -->
+    <!-- Subtitle -->
+     {% if user.is_authenticated %}
+     <p class="hero-subtitle" id="hero-title" aria-live="polite">
+        Welcome back!<br>
+        Search for movies and update your shelves.<br>
+        Keep track of what you’ve watched, what you want to watch, and what you’ve already enjoyed.
+    </p>
+    {% else %}
     <p class="hero-subtitle" id="hero-title" aria-live="polite">
         Explore thousands of movies with their details and ratings.<br>
         Sign up <u>for free</u>, and Login to create your own shelves – keeping track of what you plan to watch and what you've already enjoyed.
     </p>
+    {% endif %}
 
     {% if not user.is_authenticated %}
     <div class="hero-auth" role="group" aria-label="Authentication actions">
